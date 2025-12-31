@@ -3,6 +3,6 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  site: "https://asus-repairer.ir",
+  site: "https://sam-service.org",
   integrations: [tailwind(), sitemap()],
 });
