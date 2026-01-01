@@ -2,40 +2,271 @@
 import { SITE } from "../config/site";
 const year = new Date().getFullYear();
 ---
-<footer class="border-t border-white/10 bg-slate-950">
-  <div class="mx-auto max-w-6xl px-4 py-10">
-    <div class="grid gap-8 md:grid-cols-3">
-      <div>
-        <div class="text-base font-semibold">{SITE.name}</div>
-        <p class="mt-2 text-sm text-slate-300">
-          تعمیرات تخصصی لپ تاپ، تبلت، موبایل و مانیتور Asamsung با قطعات اورجینال و گارانتی کتبی.
+
+<footer class="ft">
+  <div class="ft-wrap">
+
+    <!-- Top -->
+    <div class="ft-grid">
+      <!-- Brand / About -->
+      <div class="ft-col">
+        <div class="ft-brand led-ring">
+          <div class="ft-brand-name">{SITE.name}</div>
+          <div class="ft-brand-sub">مرکز امور مشتریان</div>
+        </div>
+
+        <p class="ft-desc">
+          نمایندگی تعمیرات سامسونگ سام سرویس از سال 1388 افتخار این را داشته است تا به شما عزیزان در رفع
+          تمامی مشکلات مربوط به محصولات سامسونگ کمک کند. به عنوان نمایندگی تعمیرات گوشی سامسونگ،
+          خدمات ما شامل عیب یابی دقیق، تعویض قطعات اورجینال و پشتیبانی کامل از تمامی مدل های سامسونگ است
+          تا رضایت شما را جلب کنیم.
         </p>
       </div>
 
-      <div class="text-sm text-slate-300">
-        <div class="font-semibold text-slate-100">لینک های مهم</div>
-        <ul class="mt-2 space-y-2">
-          <li><a class="hover:text-white transition" href="/services">خدمات</a></li>
-          <li><a class="hover:text-white transition" href="/about">درباره ما</a></li>
-          <li><a class="hover:text-white transition" href="/contact">تماس با ما</a></li>
+      <!-- Links -->
+      <nav class="ft-col" aria-label="لینک های مهم">
+        <div class="ft-title">دسترسی سریع</div>
+        <ul class="ft-links">
+          <li><a href="/services">خدمات تعمیرات سامسونگ</a></li>
+          <li><a href="/about">درباره سام سرویس</a></li>
+          <li><a href="/contact">تماس با ما</a></li>
+          <li><a href="/faq">سوالات متداول</a></li>
         </ul>
-      </div>
+      </nav>
 
-      <div class="text-sm text-slate-300">
-        <div class="font-semibold text-slate-100">راه های ارتباطی</div>
-        <div class="mt-2 space-y-2">
-          <a class="block hover:text-white transition" href={`tel:${SITE.phone}`}>تماس: {SITE.phoneDisplay}</a>
-          {SITE.email && <a class="block hover:text-white transition" href={`mailto:${SITE.email}`}>{SITE.email}</a>}
-          <a class="inline-flex items-center justify-center rounded-xl bg-white/10 px-3 py-2 text-slate-100 hover:bg-white/15 transition" href={SITE.whatsapp}>
-            واتساپ
+      <!-- Contact -->
+      <div class="ft-col">
+        <div class="ft-title">راه های ارتباطی</div>
+
+        <div class="ft-contact">
+          <a class="ft-contact-item" href={`tel:${SITE.phone}`}>
+            <span class="ft-ico"></span>
+            تماس مستقیم: {SITE.phoneDisplay}
+          </a>
+
+          {SITE.email && (
+            <a class="ft-contact-item" href={`mailto:${SITE.email}`}>
+              <span class="ft-ico"></span>
+              {SITE.email}
+            </a>
+          )}
+
+          <a
+            class="ft-whatsapp led-ring"
+            href={SITE.whatsapp}
+            target="_blank"
+            rel="noopener"
+          >
+            پشتیبانی واتساپی
           </a>
         </div>
       </div>
     </div>
 
-    <div class="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-400 md:flex-row md:items-center md:justify-between">
-      <div>© {year} {SITE.name}. همه حقوق محفوظ است.</div>
-      <div>طراحی توسط برتر سرویس</div>
+    <!-- Bottom -->
+    <div class="ft-bottom">
+      <div>© {year} {SITE.name}. کلیه حقوق محفوظ است.</div>
+      <div class="ft-credit">طراحی و توسعه توسط برتر سرویس</div>
     </div>
+
   </div>
 </footer>
+
+<style>
+  .ft {
+    background: rgba(2, 6, 23, 0.92);
+    border-top: 1px solid rgba(255,255,255,0.10);
+    margin-top: 40px;
+  }
+
+  .ft-wrap {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 48px 16px 28px;
+  }
+
+  /* Grid */
+  .ft-grid {
+    display: grid;
+    gap: 28px;
+  }
+
+  @media (min-width: 768px) {
+    .ft-grid {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 36px;
+    }
+  }
+
+  .ft-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Brand */
+  .ft-brand {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    border-radius: 22px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    width: fit-content;
+  }
+
+  .ft-brand-name {
+    font-weight: 950;
+    font-size: 1.05rem;
+    color: rgba(241,245,249,0.98);
+  }
+
+  .ft-brand-sub {
+    font-size: 0.8rem;
+    color: rgba(203,213,225,0.75);
+  }
+
+  .ft-desc {
+    font-size: 0.9rem;
+    line-height: 2.05;
+    color: rgba(226,232,240,0.78);
+    margin-top: 6px;
+  }
+
+  /* Titles */
+  .ft-title {
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: rgba(241,245,249,0.96);
+    margin-bottom: 4px;
+  }
+
+  /* Links */
+  .ft-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .ft-links a {
+    font-size: 0.9rem;
+    color: rgba(226,232,240,0.82);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .ft-links a:hover {
+    color: rgba(255,255,255,0.98);
+  }
+
+  /* Contact */
+  .ft-contact {
+    display: grid;
+    gap: 10px;
+  }
+
+  .ft-contact-item {
+    font-size: 0.9rem;
+    color: rgba(226,232,240,0.85);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .ft-contact-item:hover {
+    color: rgba(255,255,255,0.98);
+  }
+
+  .ft-whatsapp {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    padding: 10px 14px;
+    font-weight: 900;
+    font-size: 0.88rem;
+    color: rgba(2,6,23,0.95);
+    background: rgba(0, 200, 255, 0.95);
+    border: 1px solid rgba(0, 200, 255, 0.35);
+    text-decoration: none;
+    width: fit-content;
+    transition: transform 160ms ease, background-color 160ms ease;
+  }
+
+  .ft-whatsapp:hover {
+    transform: translateY(-1px);
+    background: rgba(80, 225, 255, 1);
+  }
+
+  /* Bottom */
+  .ft-bottom {
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: rgba(203,213,225,0.7);
+  }
+
+  @media (min-width: 640px) {
+    .ft-bottom {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .ft-credit {
+    opacity: 0.85;
+  }
+
+  /* LED ring (reuse if global exists) */
+  .led-ring {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .led-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--a),
+      rgba(0,200,255,0) 0deg,
+      rgba(0,200,255,0) 292deg,
+      rgba(0,220,255,0.45) 314deg,
+      rgba(0,245,255,0.95) 330deg,
+      rgba(0,220,255,0.45) 346deg,
+      rgba(0,200,255,0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    animation: ft-rot 6.4s linear infinite;
+  }
+
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  @keyframes ft-rot {
+    to { --a: 360deg; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .led-ring::before {
+      animation: none;
+    }
+  }
+</style>

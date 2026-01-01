@@ -1,37 +1,1373 @@
 ---
 import { SITE } from "../../config/site";
+
+type DeviceKey = "mobile" | "laptop" | "tablet" | "appliances" | "av" | "camera";
+type Center = {
+  id: string;
+  name: string;
+  phone: string;
+  address: string;
+  hours?: string;
+  site?: string;
+  devices: DeviceKey[];
+  devicesLabel: string;
+  lat: number;
+  lng: number;
+  tag: string;
+};
+
+const centers: Center[] = [
+  {
+    id: "c1",
+    name: "نمایندگی مرکزی سام سرویس",
+    phone: "02191300348",
+    address: "تهران، سعادت آباد، میدان کاج، کوچه دوازدهم علی اکبر، پلاک 30، مجتمع اداری کسری، طبقه اول واحد 5",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    site: "https://sam-service.org/",
+    devices: ["mobile", "laptop", "tablet", "appliances", "av", "camera"],
+    devicesLabel: "موبایل، لپ تاپ، تبلت، لوازم خانگی، صوتی تصویری، دوربین عکاسی و فیلمبرداری",
+    lat: 35.7825085,
+    lng: 51.3752564,
+    tag: "پوشش همه دستگاه‌ها",
+  },
+  {
+    id: "c2",
+    name: "مرکز برتر سرویس",
+    phone: "02191300348",
+    address: "تهران، خیابان مطهری، ابتدای خیابان قائم مقام فراهانی جنوبی، پلاک 158، ساختمان برتر سرویس",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    site: "https://bartar-repairer.com/samsung/",
+    devices: ["mobile", "laptop", "tablet", "appliances", "av", "camera"],
+    devicesLabel: "موبایل، لپ تاپ، تبلت، لوازم خانگی، صوتی تصویری، دوربین عکاسی و فیلمبرداری",
+    lat: 35.7234056,
+    lng: 51.4198072,
+    tag: "پوشش همه دستگاه‌ها",
+  },
+  {
+    id: "c3",
+    name: "مرکز خدمات فنی جنوب",
+    phone: "02126700133",
+    address: "خیابان شریعتی، نرسیده به دوراهی قلهک، کوچه مشکانی (کودکان غزه)، پلاک 46، واحد 1",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["appliances", "av"],
+    devicesLabel: "لوازم خانگی، صوتی تصویری",
+    lat: 35.76693114069063,
+    lng: 51.44233343233727,
+    tag: "لوازم خانگی / صوتی تصویری",
+  },
+  {
+    id: "c4",
+    name: "سامسونگ سنتر",
+    phone: "02166488069",
+    address: "جمهوری، تقاطع کارگر، پلاک 1205",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["appliances", "av"],
+    devicesLabel: "لوازم خانگی، صوتی تصویری",
+    lat: 35.697291335436255,
+    lng: 51.39235972275416,
+    tag: "لوازم خانگی / صوتی تصویری",
+  },
+  {
+    id: "c5",
+    name: "مرکز سرویس ایران",
+    phone: "02144260998",
+    address: "تهران، ستارخان، خیابان صادقی‌پور (خسرو جنوبی)، خیابان سیار، پلاک 33",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["appliances", "av"],
+    devicesLabel: "لوازم خانگی، صوتی تصویری",
+    lat: 35.72122398907764,
+    lng: 51.3450094494528,
+    tag: "لوازم خانگی / صوتی تصویری",
+  },
+  {
+    id: "c6",
+    name: "تعمیر تلویزیون سامسونگ (تهرانپارس)",
+    phone: "02177713022",
+    address: "تهرانپارس، فرجام بعد از سراج، خیابان طباطبایی‌نسب (اردیبهشت سابق)، نبش ۱۸۰.۱، پلاک ۶۹، طبقه سوم، واحد ۱۰",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["av"],
+    devicesLabel: "صوتی تصویری",
+    lat: 35.7404440136319,
+    lng: 51.519641772831406,
+    tag: "صوتی تصویری",
+  },
+  {
+    id: "c7",
+    name: "جاوید الکترونیک",
+    phone: "02177506506",
+    address: "خیابان نامجو (گرگان)، بالاتر از چهارراه قجاوند، پلاک 547، طبقه 3، واحد 11",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["av"],
+    devicesLabel: "صوتی تصویری",
+    lat: 35.709518147752384,
+    lng: 51.44868590166892,
+    tag: "صوتی تصویری",
+  },
+  {
+    id: "c8",
+    name: "تعمیرات سامسونگ مهرجو",
+    phone: "02166151085",
+    address: "مالک اشتر بین جیهون و یادگار، کوچه مهرجو، پلاک ۱۶",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["av", "appliances", "camera"],
+    devicesLabel: "صوتی تصویری، لوازم خانگی، دوربین عکاسی و فیلمبرداری",
+    lat: 35.68467846047813,
+    lng: 51.35851738817814,
+    tag: "چندمنظوره",
+  },
+  {
+    id: "c9",
+    name: "تعمیرگاه مجاز سام سرویس",
+    phone: "02166074150",
+    address: "خیابان آزادی، خیابان شهیدان، نرسیده به دکتر هوشیار",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["appliances"],
+    devicesLabel: "لوازم خانگی",
+    lat: 35.6984860885136,
+    lng: 51.35644606860352,
+    tag: "لوازم خانگی",
+  },
+  {
+    id: "c10",
+    name: "سام تهویه",
+    phone: "02166052405",
+    address: "خیابان طوس، بعد از ۲۱متری جی، نبش بشارت، پلاک ۵۱۷",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["appliances", "camera", "av"],
+    devicesLabel: "لوازم خانگی، دوربین عکاسی و فیلمبرداری، صوتی تصویری",
+    lat: 35.694155999667174,
+    lng: 51.3497470537844,
+    tag: "چندمنظوره",
+  },
+  {
+    id: "c11",
+    name: "خانه سام",
+    phone: "02144213354",
+    address: "منطقه ۲، خیابان ستارخان، بین فلکه اول و دوم صادقیه (P8CP+VRG)",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["laptop", "appliances", "av", "camera"],
+    devicesLabel: "لپ تاپ، لوازم خانگی، صوتی تصویری، دوربین عکاسی و فیلمبرداری",
+    lat: 35.72231631647787,
+    lng: 51.337357524947095,
+    tag: "به‌جز موبایل/تبلت",
+  },
+  {
+    id: "c12",
+    name: "سامسونگ سرویس (بخارست)",
+    phone: "0218255",
+    address: "خیابان احمد قصیر (بخارست)، نبش خیابان دوازدهم، پلاک 30",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["laptop", "appliances", "av", "camera"],
+    devicesLabel: "لپ تاپ، لوازم خانگی، صوتی تصویری، دوربین عکاسی و فیلمبرداری",
+    lat: 35.73339260859303,
+    lng: 51.41700808447114,
+    tag: "به‌جز موبایل/تبلت",
+  },
+  {
+    id: "c13",
+    name: "پارسینا الکترونیک",
+    phone: "02188284142",
+    address: "بزرگراه جلال آل احمد، خیابان آرش مهر، کوچه گلرخ",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["mobile", "laptop", "tablet"],
+    devicesLabel: "موبایل، لپ تاپ، تبلت",
+    lat: 35.72519150531964,
+    lng: 51.37265414979296,
+    tag: "موبایل / لپ تاپ / تبلت",
+  },
+  {
+    id: "c14",
+    name: "24سامسونگ",
+    phone: "02145102",
+    address: "فلکه دوم صادقیه، برج گلدیس، طبقه 11، واحد 1114",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["mobile", "laptop", "tablet"],
+    devicesLabel: "موبایل، لپ تاپ، تبلت",
+    lat: 35.72198747892425,
+    lng: 51.33685883420913,
+    tag: "موبایل / لپ تاپ / تبلت",
+  },
+  {
+    id: "c15",
+    name: "السامسونگ",
+    phone: "02188697020",
+    address: "سعادت آباد، بلوار دریا، تقاطع مطهری (سردار دریا شمالی)، پلاک 165",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["appliances", "av", "camera"],
+    devicesLabel: "لوازم خانگی، صوتی تصویری، دوربین عکاسی و فیلمبرداری",
+    lat: 35.77139267319381,
+    lng: 51.36672942165959,
+    tag: "به‌جز موبایل/لپ‌تاپ/تبلت",
+  },
+  {
+    id: "c16",
+    name: "همراه سرویس خاورمیانه",
+    phone: "02122045871",
+    address: "بلوار نلسون ماندلا، بلوار آرش غربی",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["mobile", "tablet"],
+    devicesLabel: "موبایل، تبلت",
+    lat: 35.770829577032934,
+    lng: 51.42170724769867,
+    tag: "موبایل / تبلت",
+  },
+  {
+    id: "c17",
+    name: "سامسونگ راشان",
+    phone: "02188209821",
+    address: "تهران، بلوار میرداماد، پلاک 12",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["mobile", "tablet", "laptop"],
+    devicesLabel: "موبایل، تبلت، لپ تاپ",
+    lat: 35.76021937684605,
+    lng: 51.446072472830444,
+    tag: "موبایل / تبلت / لپ تاپ",
+  },
+  {
+    id: "c18",
+    name: "لوازم خانگی متحرک",
+    phone: "02188089955",
+    address: "منطقه ۲، بلوار ایوانک، پلاک 12",
+    hours: "برای اطلاع از ساعات کاری تماس بگیرید",
+    devices: ["mobile", "appliances", "av", "camera"],
+    devicesLabel: "موبایل، لوازم خانگی، صوتی تصویری، دوربین عکاسی و فیلمبرداری",
+    lat: 35.754026623647235,
+    lng: 51.36475643652355,
+    tag: "به‌جز تبلت/لپ‌تاپ",
+  },
+];
+
+const areasServedText = SITE.areasServed?.length ? SITE.areasServed.join("، ") : "تهران و حومه";
 ---
-<section class="mt-10 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-  <h2 class="text-xl font-bold md:text-2xl">نقاط تحت پوشش</h2>
 
-  <div class="mt-5 grid gap-4 md:grid-cols-2">
-    <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5">
-      <div class="font-semibold">پیک رایگان</div>
-      <p class="mt-2 text-sm text-slate-300 leading-relaxed">
-تنها با یک تماس میتوانید از خدمات پیک رایگان دریافت و ارسال دستگاه ایسر خود برای تعمیرات استفاده نمایید. اگر ساکن تهران هستید و امکان مراجعه حضوری به نمایندگی تعمیرات ایسر را ندارید تنها کافی استتماس بگیرید تا پیک مجموعه ما در سریع ترین زمان ممکن برای تحویل دستگاه ایسر نزد شما مراجعه کند.      </p>
+<section class="cov mt-10" id="coverage" aria-label="نقاط تحت پوشش">
+  <!-- Top: pickup + branches + image (one row on desktop) -->
+  <div class="cov-shell led-surface">
+    <div class="cov-led" aria-hidden="true"></div>
 
-     <div class="font-semibold">شعب حضوری</div>
-      <ul class="mt-2 space-y-2 text-sm text-slate-300">
-        <li>آدرس نمایندگی مرکزی: تهران، خیابان مطهری، ابتدای خیابان قائم مقام فراهانی جنوبی، پلاک 158، ساختمان برتر سرویس</li>
-        <li>آدرس نمایندگی غرب: تهران، سعادت آباد، میدان کاج، کوچه دوازدهم علی اکبر، پلاک 30، مجتمع اداری کسری، طبقه اول واحد 5</li>
-      </ul>
-
-    <img
-  src="/samsung-p.webp"
-  alt="نمایندگی تعمیرات سامسونگ"
-  width="400"
-  height="400"
-  loading="eager"
-  decoding="async"
-  class="h-400 w-400 rounded-2xl object-contain bg-white/10 p-1"
-/>
+    <div class="cov-head">
+      <h2 class="cov-title">نقاط تحت پوشش</h2>
+      <p class="cov-sub">پیک رایگان، شعب حضوری و نقشه مراکز تعمیرات در تهران</p>
     </div>
 
-    <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5">
-      <div class="font-semibold">مناطق سرویس دهی</div>
-      <p class="mt-2 text-sm text-slate-300 leading-relaxed">
-        {SITE.areasServed.join("، ")}
-      </p>
+    <div class="cov-top">
+      <div class="cov-card cov-info">
+        <div class="cov-cardTitle">پیک رایگان</div>
+        <p class="cov-p">
+          تنها با یک تماس میتوانید از خدمات پیک رایگان دریافت و ارسال دستگاه سامسونگ برای تعمیرات استفاده نمایید.
+          اگر ساکن تهران هستید و امکان مراجعه حضوری ندارید کافی است تماس بگیرید تا پیک مجموعه در سریع‌ترین زمان
+          برای تحویل دستگاه نزد شما مراجعه کند.
+        </p>
+
+        <div class="cov-cardTitle mt">شعب حضوری</div>
+        <ul class="cov-list">
+          <li><strong>نمایندگی مرکزی:</strong> تهران، خیابان مطهری، ابتدای خیابان قائم مقام فراهانی جنوبی، پلاک 158، ساختمان برتر سرویس</li>
+          <li><strong>نمایندگی غرب:</strong> تهران، سعادت آباد، میدان کاج، کوچه دوازدهم علی اکبر، پلاک 30، مجتمع اداری کسری، طبقه اول واحد 5</li>
+        </ul>
+      </div>
+
+      <div class="cov-card cov-media led-ring" aria-label="تصویر نمایندگی">
+        <img
+          src="/samsung-p.webp"
+          alt="نمایندگی تعمیرات سامسونگ"
+          width="520"
+          height="520"
+          loading="eager"
+          decoding="async"
+          class="cov-img"
+        />
+        <div class="cov-mediaMeta" aria-hidden="true">
+          <span class="cov-chip">پوشش سریع تهران</span>
+          <span class="cov-dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Locator + Map -->
+    <div class="locator-surface" role="region" aria-label="یافتن مرکز تعمیرات سامسونگ در تهران">
+      <div class="locator-led" aria-hidden="true"></div>
+
+      <div class="surface-head">
+        <div>
+          <h3 class="h3">یافتن مرکز تعمیرات سامسونگ در تهران</h3>
+          <p class="sub">جستجو بر اساس نام مرکز، محله یا بخشی از آدرس — و فیلتر بر اساس مدل دستگاه.</p>
+        </div>
+
+        <div class="seg" aria-label="میانبرها">
+          <button type="button" id="btnNearest" aria-pressed="false">نزدیک‌ترین به من</button>
+          <button type="button" id="btnReset" aria-pressed="false">نمایش همه</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="field">
+          <label for="q">جستجو</label>
+          <input class="input" id="q" name="q" type="search" placeholder="مثلاً: سعادت‌آباد، صادقیه، مطهری..." autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label for="device">مدل دستگاه</label>
+          <select class="select" id="device" name="device">
+            <option value="">همه دستگاه‌ها</option>
+            <option value="mobile">موبایل</option>
+            <option value="laptop">لپ تاپ</option>
+            <option value="tablet">تبلت</option>
+            <option value="appliances">لوازم خانگی</option>
+            <option value="av">صوتی تصویری</option>
+            <option value="camera">دوربین عکاسی و فیلمبرداری</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" type="button" id="btnApply">اعمال فیلتر</button>
+        </div>
+
+        <div class="field">
+          <label>&nbsp;</label>
+          <button class="btn btn-ghost" type="button" id="btnShowMap">نمایش نقشه</button>
+        </div>
+      </div>
+
+      <div class="locator" id="locator" data-view="list">
+        <!-- Mobile tabs -->
+        <div class="mobileTabs">
+          <div class="seg">
+            <button type="button" id="tabList" aria-pressed="true">لیست</button>
+            <button type="button" id="tabMap" aria-pressed="false">نقشه</button>
+          </div>
+          <div class="hint">روی یک مرکز بزن تا روی نقشه نمایش داده شود.</div>
+        </div>
+
+        <!-- LIST -->
+        <div class="listPane" aria-label="لیست مراکز">
+          <div class="metaRow">
+            <span>تعداد مراکز قابل نمایش: <strong id="count">0</strong></span>
+            <span class="hint">برای مسیریابی از دکمه «مسیریابی» استفاده کنید.</span>
+          </div>
+
+          <div class="centers" id="centersList">
+            {centers.map((c) => (
+              <article
+                class="center-card led-ring"
+                data-id={c.id}
+                data-name={c.name}
+                data-phone={c.phone}
+                data-address={c.address}
+                data-hours={c.hours ?? ""}
+                data-devices={c.devices.join(",")}
+                data-devices-label={c.devicesLabel}
+                data-lat={String(c.lat)}
+                data-lng={String(c.lng)}
+              >
+                <div class="center-top">
+                  <h4 class="center-name">{c.name}</h4>
+                  <span class="tag">{c.tag}</span>
+                </div>
+
+                <div class="center-body">
+                  <div class="center-row">
+                    <span class="ico">📍</span>
+                    <div><strong>آدرس:</strong> <span>{c.address}</span></div>
+                  </div>
+
+                  <div class="center-row">
+                    <span class="ico">☎️</span>
+                    <div>
+                      <strong>تماس:</strong> <a href={`tel:${c.phone}`}>{c.phone}</a>
+                      {c.hours ? <div class="hint tiny">{c.hours}</div> : null}
+                    </div>
+                  </div>
+
+                  {c.site ? (
+                    <div class="center-row">
+                      <span class="ico">🌐</span>
+                      <div>
+                        <strong>سایت:</strong> <a href={c.site} rel="noopener">{c.site.replace(/^https?:\/\//, "")}</a>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  <div class="devices" aria-label="پوشش دستگاه‌ها">
+                    {c.devices.map((d) => (
+                      <span class="chip">{d === "mobile" ? "موبایل" : d === "laptop" ? "لپ تاپ" : d === "tablet" ? "تبلت" : d === "appliances" ? "لوازم خانگی" : d === "av" ? "صوتی تصویری" : "دوربین"}</span>
+                    ))}
+                  </div>
+
+                  <div class="center-actions">
+                    <a class="btn-sm primary" href={`tel:${c.phone}`}>تماس با مرکز</a>
+                    <a class="btn-sm" data-route href="#" rel="noopener">مسیریابی</a>
+                    <button class="btn-sm" type="button" data-focus>نمایش روی نقشه</button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <!-- MAP -->
+        <div class="mapPane" id="mapSection" aria-label="نقشه مراکز">
+          <div id="map" role="application" aria-label="نقشه مراکز تعمیرات سامسونگ"></div>
+
+          <div class="map-skeleton" id="mapSkeleton">
+            <div class="spinner" aria-hidden="true"></div>
+            <strong>در حال آماده‌سازی نقشه…</strong>
+            <p>نقشه فقط هنگام نیاز (اسکرول/باز کردن تب) بارگذاری می‌شود تا سرعت صفحه بالا بماند.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="areas">
+        <div class="areas-title">مناطق سرویس دهی</div>
+        <p class="areas-text">{areasServedText}</p>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Leaflet CSS (local) -->
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+
+<script is:inline>
+  // -------- Locator UI (filter + map) ----------
+  const locator = document.getElementById("locator");
+  const q = document.getElementById("q");
+  const device = document.getElementById("device");
+  const btnApply = document.getElementById("btnApply");
+  const btnReset = document.getElementById("btnReset");
+  const btnNearest = document.getElementById("btnNearest");
+  const btnShowMap = document.getElementById("btnShowMap");
+  const tabList = document.getElementById("tabList");
+  const tabMap = document.getElementById("tabMap");
+  const listEl = document.getElementById("centersList");
+  const countEl = document.getElementById("count");
+  const mapSection = document.getElementById("mapSection");
+  const mapSkeleton = document.getElementById("mapSkeleton");
+
+  function norm(s) {
+    return (s || "")
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[‌\u200c]/g, " ")
+      .replace(/\s+/g, " ");
+  }
+
+  function getCards() {
+    return Array.from(listEl?.querySelectorAll(".center-card") || []);
+  }
+
+  function applyFilter() {
+    const query = norm(q?.value);
+    const dev = device?.value || "";
+
+    let shown = 0;
+    getCards().forEach((card) => {
+      const name = norm(card.dataset.name);
+      const addr = norm(card.dataset.address);
+      const devices = (card.dataset.devices || "").split(",").map((x) => x.trim());
+      const okQuery = !query || name.includes(query) || addr.includes(query);
+      const okDev = !dev || devices.includes(dev);
+      const show = okQuery && okDev;
+
+      card.style.display = show ? "" : "none";
+      if (show) shown++;
+    });
+
+    if (countEl) countEl.textContent = String(shown);
+  }
+
+  function resetFilter() {
+    if (q) q.value = "";
+    if (device) device.value = "";
+    applyFilter();
+  }
+
+  btnApply?.addEventListener("click", applyFilter);
+  btnReset?.addEventListener("click", resetFilter);
+  q?.addEventListener("input", () => {
+    // lightweight live search
+    applyFilter();
+  });
+
+  // -------- Tabs (mobile) ----------
+  function setView(view) {
+    locator?.setAttribute("data-view", view);
+    if (tabList) tabList.setAttribute("aria-pressed", view === "list" ? "true" : "false");
+    if (tabMap) tabMap.setAttribute("aria-pressed", view === "map" ? "true" : "false");
+    if (view === "map") ensureMap();
+  }
+
+  tabList?.addEventListener("click", () => setView("list"));
+  tabMap?.addEventListener("click", () => setView("map"));
+  btnShowMap?.addEventListener("click", () => setView("map"));
+
+  // -------- Leaflet Lazy Load ----------
+  let L;
+  let map;
+  let markers = new Map(); // id -> marker
+  let markerLayer;
+  let leafletLoaded = false;
+
+  function addLeafletScript() {
+    return new Promise((resolve, reject) => {
+      if (leafletLoaded) return resolve();
+      const s = document.createElement("script");
+      s.src = "/vendor/leaflet/leaflet.js";
+      s.defer = true;
+      s.onload = () => {
+        leafletLoaded = true;
+        L = window.L;
+        resolve();
+      };
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  function getCenterFromCard(card) {
+    return {
+      id: card.dataset.id,
+      name: card.dataset.name,
+      phone: card.dataset.phone,
+      address: card.dataset.address,
+      devicesLabel: card.dataset.devicesLabel || "",
+      lat: parseFloat(card.dataset.lat || "0"),
+      lng: parseFloat(card.dataset.lng || "0"),
+    };
+  }
+
+  function buildRouteLink(center, userLatLng) {
+    const dest = `${center.lat},${center.lng}`;
+    if (userLatLng) {
+      const origin = `${userLatLng.lat},${userLatLng.lng}`;
+      // Google Maps directions
+      return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(dest)}`;
+    }
+    // fallback to destination only
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest)}`;
+  }
+
+  async function ensureMap() {
+    if (map) {
+      // refresh sizing when revealed
+      setTimeout(() => map.invalidateSize(true), 80);
+      mapSkeleton?.classList.add("is-hidden");
+      return;
+    }
+
+    mapSkeleton?.classList.remove("is-hidden");
+    await addLeafletScript();
+
+    const mapEl = document.getElementById("map");
+    if (!mapEl || !L) return;
+
+    // Default center: Tehran
+    map = L.map(mapEl, { scrollWheelZoom: false, tap: false }).setView([35.715298, 51.404343], 11);
+
+    // tiles (OSM)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap",
+    }).addTo(map);
+
+    markerLayer = L.layerGroup().addTo(map);
+
+    // Add markers for currently visible cards
+    syncMarkers();
+
+    mapSkeleton?.classList.add("is-hidden");
+    setTimeout(() => map.invalidateSize(true), 120);
+  }
+
+  function syncMarkers() {
+    if (!map || !L) return;
+    markerLayer.clearLayers();
+    markers.clear();
+
+    const visibleCards = getCards().filter((c) => c.style.display !== "none");
+    const bounds = [];
+
+    visibleCards.forEach((card) => {
+      const c = getCenterFromCard(card);
+      if (!c.lat || !c.lng) return;
+
+      const m = L.marker([c.lat, c.lng]).addTo(markerLayer);
+      m.bindPopup(
+        `<div style="font-family:inherit;line-height:1.6">
+          <strong>${c.name}</strong><br/>
+          <span>${c.address}</span><br/>
+          <a href="tel:${c.phone}" style="text-decoration:none">☎️ ${c.phone}</a>
+        </div>`
+      );
+      markers.set(c.id, m);
+      bounds.push([c.lat, c.lng]);
+    });
+
+    if (bounds.length) {
+      map.fitBounds(bounds, { padding: [40, 40] });
+    }
+  }
+
+  // Focus a specific center on map
+  function focusCenter(card) {
+    const c = getCenterFromCard(card);
+    ensureMap().then(() => {
+      const m = markers.get(c.id);
+      if (m) {
+        map.setView([c.lat, c.lng], 14, { animate: true });
+        m.openPopup();
+      } else {
+        // markers not synced or filtered; rebuild
+        syncMarkers();
+        const mm = markers.get(c.id);
+        if (mm) {
+          map.setView([c.lat, c.lng], 14, { animate: true });
+          mm.openPopup();
+        }
+      }
+      // on mobile, switch to map view
+      if (window.innerWidth < 768) setView("map");
+    });
+  }
+
+  // Wire list actions
+  listEl?.addEventListener("click", async (e) => {
+    const t = e.target;
+    const card = t?.closest?.(".center-card");
+    if (!card) return;
+
+    // focus button
+    if (t?.matches?.("[data-focus]")) {
+      e.preventDefault();
+      focusCenter(card);
+      return;
+    }
+
+    // route link
+    if (t?.matches?.("[data-route]")) {
+      e.preventDefault();
+      const c = getCenterFromCard(card);
+
+      // try use geolocation if available for better directions
+      let user = null;
+      try {
+        user = await new Promise((resolve) => {
+          if (!navigator.geolocation) return resolve(null);
+          navigator.geolocation.getCurrentPosition(
+            (pos) => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+            () => resolve(null),
+            { enableHighAccuracy: true, timeout: 6000 }
+          );
+        });
+      } catch (_) {}
+
+      const url = buildRouteLink(c, user);
+      window.open(url, "_blank", "noopener");
+      return;
+    }
+  });
+
+  // Nearest to me
+  btnNearest?.addEventListener("click", async () => {
+    btnNearest.setAttribute("aria-pressed", "true");
+    try {
+      if (!navigator.geolocation) throw new Error("no geo");
+
+      const pos = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 7000 });
+      });
+
+      const user = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+
+      let best = null;
+      let bestDist = Infinity;
+
+      getCards().forEach((card) => {
+        if (card.style.display === "none") return;
+        const c = getCenterFromCard(card);
+        const d =
+          Math.hypot((c.lat - user.lat) * 111, (c.lng - user.lng) * 111); // quick approx
+        if (d < bestDist) {
+          bestDist = d;
+          best = card;
+        }
+      });
+
+      if (best) {
+        focusCenter(best);
+      } else {
+        alert("مرکزی برای نمایش یافت نشد.");
+      }
+    } catch (_) {
+      alert("برای یافتن نزدیک‌ترین مرکز، دسترسی موقعیت مکانی را فعال کنید.");
+    } finally {
+      btnNearest.setAttribute("aria-pressed", "false");
+    }
+  });
+
+  // Rebuild markers after filter
+  function applyAndSync() {
+    applyFilter();
+    if (map) syncMarkers();
+  }
+  btnApply?.addEventListener("click", applyAndSync);
+  btnReset?.addEventListener("click", () => {
+    resetFilter();
+    if (map) syncMarkers();
+  });
+
+  // init count on load
+  applyFilter();
+
+  // Lazy init map when scrolled into view
+  // Lazy init map when scrolled into view
+// - Desktop (>=1024): auto-create map when locator enters viewport
+// - Mobile: just preload leaflet; map creates when user opens map tab/button
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+
+        // Always warm up leaflet when the section is near
+        addLeafletScript().catch(() => {});
+
+        // Desktop: map pane is visible by design, so init map automatically
+        if (window.innerWidth >= 1024) {
+          ensureMap().catch(() => {});
+        }
+
+        io.disconnect();
+      });
+    },
+    { rootMargin: "250px 0px" }
+  );
+
+  if (mapSection) io.observe(mapSection);
+} else {
+  // Fallback
+  if (window.innerWidth >= 1024) ensureMap().catch(() => {});
+}
+</script>
+
+<style>
+  /* ---- Coverage shell ---- */
+  .cov {
+    --sx: 0, 200, 255;
+    --ink: rgba(241, 245, 249, 0.96);
+    --muted: rgba(226, 232, 240, 0.76);
+  }
+
+  .cov-shell {
+    position: relative;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    padding: 18px;
+    overflow: hidden;
+    box-shadow: 0 26px 90px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+
+  .cov-led {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--a),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 290deg,
+      rgba(var(--sx), 0.55) 312deg,
+      rgba(var(--sx), 1.0) 328deg,
+      rgba(var(--sx), 0.55) 344deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    filter: saturate(1.25);
+    opacity: 0.75;
+    animation: cov-rot 6.8s linear infinite;
+  }
+
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes cov-rot { to { --a: 360deg; } }
+
+  .cov-head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 2px 10px;
+  }
+  .cov-title { font-size: 1.25rem; font-weight: 950; }
+  .cov-sub { font-size: 0.9rem; color: var(--muted); }
+
+  /* top row */
+  .cov-top {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1fr;
+    margin-top: 8px;
+  }
+  @media (min-width: 900px) {
+    .cov-top { grid-template-columns: 1.25fr 0.75fr; align-items: stretch; }
+  }
+
+  .cov-card {
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2, 6, 23, 0.40);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+    padding: 16px;
+  }
+
+  .cov-info .cov-cardTitle { font-weight: 900; color: var(--ink); }
+  .cov-info .mt { margin-top: 14px; }
+
+  .cov-p {
+    margin-top: 8px;
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .cov-list {
+    margin-top: 10px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.85;
+  }
+
+  .cov-media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cov-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    display: block;
+    padding: 10px;
+  }
+
+  @media (min-width: 900px) {
+    .cov-img { aspect-ratio: 4 / 3; }
+  }
+
+  .cov-mediaMeta {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0.9;
+  }
+
+  .cov-chip {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(203, 213, 225, 0.9);
+  }
+  .cov-dot {
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: rgba(var(--sx), 0.9);
+    box-shadow: 0 0 18px rgba(var(--sx), 0.55);
+  }
+
+  /* ----- LED ring reusable (same style as elsewhere) ----- */
+  .led-ring { position: relative; overflow: hidden; }
+  .led-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--b),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 292deg,
+      rgba(var(--sx), 0.45) 314deg,
+      rgba(var(--sx), 0.95) 330deg,
+      rgba(var(--sx), 0.45) 346deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    filter: saturate(1.25);
+    opacity: 0.9;
+    animation: cov-rot2 6.2s linear infinite;
+  }
+  .led-ring::after {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--b),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 305deg,
+      rgba(var(--sx), 0.30) 326deg,
+      rgba(var(--sx), 0.60) 340deg,
+      rgba(var(--sx), 0.30) 354deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    filter: blur(16px) saturate(1.25);
+    opacity: 0.55;
+    mix-blend-mode: screen;
+    animation: cov-rot2 6.2s linear infinite;
+  }
+  @property --b {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes cov-rot2 { to { --b: 360deg; } }
+
+  /* ---- Locator Surface ---- */
+  .locator-surface {
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+    border-radius: 26px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2, 6, 23, 0.50);
+    padding: 16px;
+    box-shadow: 0 26px 90px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.12);
+    overflow: hidden;
+  }
+
+  .locator-led {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--c),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 288deg,
+      rgba(var(--sx), 0.35) 314deg,
+      rgba(var(--sx), 0.75) 332deg,
+      rgba(var(--sx), 0.35) 350deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    filter: saturate(1.25);
+    opacity: 0.65;
+    animation: loc-rot 7.2s linear infinite;
+  }
+  @property --c {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes loc-rot { to { --c: 360deg; } }
+
+  .surface-head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 14px;
+    align-items: end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 950;
+    color: var(--ink);
+  }
+
+  .sub {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .seg {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .seg button {
+    border: 0;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 9px 12px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    color: rgba(226,232,240,0.92);
+    background: rgba(255,255,255,0.02);
+    transition: background-color 180ms ease, transform 180ms ease, color 180ms ease;
+  }
+
+  .seg button:hover { background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+
+  .controls {
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .controls { grid-template-columns: 1.2fr 1fr auto auto; align-items: end; }
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 900;
+    color: rgba(203,213,225,0.9);
+    margin-bottom: 6px;
+  }
+
+  .input, .select {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(241,245,249,0.95);
+    padding: 11px 12px;
+    outline: none;
+    transition: border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .input:focus, .select:focus {
+    border-color: rgba(var(--sx), 0.55);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .btn {
+    border-radius: 16px;
+    padding: 11px 14px;
+    font-weight: 950;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(241,245,249,0.92);
+    transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.06); }
+
+  .btn-primary {
+    background: rgba(0, 200, 255, 0.92);
+    color: rgba(2, 6, 23, 0.95);
+    border-color: rgba(0, 200, 255, 0.35);
+  }
+  .btn-primary:hover { background: rgba(90, 225, 255, 0.98); }
+
+  .btn-ghost { background: rgba(255,255,255,0.03); }
+
+  .locator {
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    .locator {
+      grid-template-columns: 1.05fr 0.95fr; /* list + map */
+      align-items: stretch;
+    }
+  }
+
+  .mobileTabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  @media (min-width: 1024px) {
+    .mobileTabs { display: none; }
+  }
+
+  .metaRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: rgba(203,213,225,0.85);
+    font-size: 0.85rem;
+    padding: 2px 2px 6px;
+  }
+
+  .hint { color: rgba(226,232,240,0.62); font-size: 0.82rem; }
+  .hint.tiny { font-size: 0.78rem; margin-top: 4px; }
+
+  .centers {
+    display: grid;
+    gap: 10px;
+  }
+
+  .center-card {
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    padding: 14px;
+    box-shadow: 0 18px 55px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.10);
+    transition: transform 200ms ease, background-color 200ms ease, border-color 200ms ease;
+  }
+  .center-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.14);
+  }
+
+  .center-top {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .center-name { margin: 0; font-size: 0.98rem; font-weight: 950; color: rgba(241,245,249,0.98); }
+  .tag {
+    font-size: 0.72rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(203,213,225,0.9);
+    white-space: nowrap;
+  }
+
+  .center-body { margin-top: 10px; display: grid; gap: 10px; }
+  .center-row {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 10px;
+    align-items: start;
+    color: rgba(226,232,240,0.82);
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+  .ico { display: inline-flex; align-items: center; justify-content: center; opacity: 0.9; }
+  .center-row a { color: rgba(120, 220, 255, 0.95); text-decoration: none; }
+  .center-row a:hover { text-decoration: underline; }
+
+  .devices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .chip {
+    font-size: 0.72rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(203,213,225,0.88);
+  }
+
+  .center-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .btn-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    padding: 9px 11px;
+    font-weight: 950;
+    font-size: 0.84rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(241,245,249,0.92);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 180ms ease, background-color 180ms ease;
+  }
+  .btn-sm:hover { transform: translateY(-1px); background: rgba(255,255,255,0.06); }
+  .btn-sm.primary {
+    background: rgba(0, 200, 255, 0.92);
+    color: rgba(2, 6, 23, 0.95);
+    border-color: rgba(0, 200, 255, 0.35);
+  }
+
+  .mapPane {
+    position: relative;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.02);
+    overflow: hidden;
+    min-height: 360px;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+  }
+
+  @media (min-width: 1024px) {
+    .mapPane { min-height: 620px; }
+    #map { min-height: 620px; }
+  }
+
+  .map-skeleton {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    gap: 10px;
+    padding: 18px;
+    text-align: center;
+    background: radial-gradient(900px 450px at 20% 0%, rgba(255,255,255,0.06), transparent 60%),
+                linear-gradient(180deg, rgba(2,6,23,0.65), rgba(2,6,23,0.55));
+    color: rgba(241,245,249,0.92);
+  }
+
+  .map-skeleton.is-hidden { display: none; }
+
+  .spinner {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 3px solid rgba(255,255,255,0.14);
+    border-top-color: rgba(var(--sx), 0.85);
+    animation: spin 900ms linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* areas served footer inside locator */
+  .areas {
+    margin-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px;
+  }
+  .areas-title { font-weight: 950; color: rgba(241,245,249,0.96); }
+  .areas-text { margin-top: 8px; color: rgba(226,232,240,0.78); line-height: 1.9; font-size: 0.92rem; }
+
+
+  /* ---- Scrollable list (prevent super long page) ---- */
+.listPane {
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+}
+
+@media (min-width: 1024px) {
+  .listPane {
+    min-height: 620px; /* match map height */
+    max-height: 620px;
+  }
+}
+
+/* meta row stays visible */
+.metaRow {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: rgba(2, 6, 23, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 8px;
+  border-radius: 16px;
+}
+
+/* the actual scroll area */
+.centers {
+  margin-top: 10px;
+  overflow: auto;
+  padding-right: 6px; /* space for scrollbar */
+  max-height: 520px;  /* mobile default */
+}
+
+@media (min-width: 1024px) {
+  .centers {
+    max-height: calc(620px - 60px); /* list area inside panel */
+  }
+}
+
+/* nicer scrollbar (optional) */
+.centers::-webkit-scrollbar { width: 10px; }
+.centers::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(2,6,23,0.6);
+  border-radius: 999px;
+}
+.centers::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+
+  /* Mobile view switch: show list or map */
+  @media (max-width: 1023px) {
+    .locator[data-view="list"] .mapPane { display: none; }
+    .locator[data-view="map"] .listPane { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cov-led, .locator-led, .led-ring::before, .led-ring::after { animation: none; }
+  }
+
+  /* Leaflet RTL niceties */
+  :global(.leaflet-container) {
+    font-family: inherit;
+    border-radius: 22px;
+    background: rgba(2,6,23,0.45);
+  }
+  :global(.leaflet-popup-content-wrapper),
+  :global(.leaflet-popup-tip) {
+    background: rgba(2,6,23,0.92);
+    color: rgba(241,245,249,0.95);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 18px 55px rgba(0,0,0,0.45);
+  }
+  :global(.leaflet-control-zoom a) {
+    background: rgba(255,255,255,0.06);
+    color: rgba(241,245,249,0.92);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+</style>

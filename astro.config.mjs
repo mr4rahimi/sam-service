@@ -5,4 +5,5 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: "https://sam-service.org",
   integrations: [tailwind(), sitemap()],
+  output: "static",
 });

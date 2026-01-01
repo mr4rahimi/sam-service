@@ -1,39 +1,582 @@
 ---
 const services = [
   {
-    title: "تعمیر لپ تاپ سامسونگ",
-    desc:
-      "عیب یابی برد، تعمیرات نرم افزاری، تعویض قطعات، سرویس و بهینه سازی. مناسب برای مشکلات تصویر، شارژ، داغی، کندی و روشن نشدن.",
+    id: "mobile",
+    title: "تعمیر گوشی سامسونگ",
+    img: "/services/samsung-mobile.webp",
+    imgAlt: "تعمیر گوشی سامسونگ",
+    descShort:
+      "تعمیر تخصصی موبایل سامسونگ با عیب یابی دقیق، قطعات اصلی و اعلام هزینه قبل از تعمیر. رفع مشکلات سخت افزاری و نرم افزاری با استانداردهای نمایندگی.",
+    descLong: `تعمیر گوشی سامسونگ در حال حاضر یکی از تخصصی ترین خدمات مرکز سام سرویس می باشد. که به عنوان نمایندگی تعمیرات موبایل سامسونگ با مجوز رسمی از کمپانی samsung فعالیت می نماید. هر سرویسی که وارد این منطقه شود باید دائماً اطلاعات و آموزش خود را در زمینه تعمیر موبایل سامسونگ به روز کند. این چالش زمانی دشوارتر می شود که سالانه تعداد زیادی از تلفن های هوشمند سامسونگ را معرفی کنیم. کشور کره برای هر سال برنامه های مختلفی دارد و انواع تلفن های همراه را با قیمت ها و مشخصات مختلف ارائه می دهد.
+
+چالش تعمیر تلفن سامسونگ را می توان از دیدگاه های مختلف مشاهده کرد. انتظارات زیادی از نمایندگی تعمیرات گوشی سامسونگ در تهران است. خدمات اساسی تعمیر تلفن سامسونگ را می توانید در هر مرکز خدمات موبایل سامسونگ یا مرکز خدمات مجاز سامسونگ پیدا کنید. اما یافتن نمایندگی معتبر تعمیرات موبایل سامسونگ که خدمات به روز و بین المللی را به مشتریان خود ارائه دهد ، نیاز به تقاضای کمی بیشتر دارد.
+
+نمایندگی تعمیرات موبایل سامسونگ ، با بررسی عیب یابی تخصصی مشکلات تلفن همراه سامسونگ ، توسط تعمیرکاران مجرب و متخصص که دوره های خود را تحت لیسانس کمپانی سامسونگ گذرانده اند، اقدام به تعمیر موبایل سامسونگ می نمایند.
+
+تمامی قطعات بکار رفته در تعمیرات گوشی سامسونگ وارد شده از خود شرکت سامسونگ و اصلی و با گارانتی سامسونگ می باشند. همچنین هزینه های تعمیرات برحسب استانداردها و مشخصه های نمایندگی تعمیرات سامسونگ محاسبه شده و کمترین هزینه تعمیر موبایل سامسونگ را در پی خواهد داشت.`,
+    bullets: [
+      "رفع مشکل CPU و برد",
+      "تعویض LCD و تاچ",
+      "تعمیر آب خوردگی و سولفاته",
+      "تعمیر یا تعویض باتری",
+      "تعمیر دوربین، میکروفن و اسپیکر",
+      "رفع مشکل آنتن دهی و WiFi",
+    ],
+    accent: "cyan",
   },
+
   {
-    title: "تعمیر تبلت و موبایل سامسونگ",
-    desc:
-      "تعویض باتری، سوکت شارژ، صفحه نمایش، مشکلات نرم افزاری، آب خوردگی و سایر ایرادات رایج با قطعات اصلی.",
+    id: "laptop",
+    title: "تعمیر تخصصی لپ تاپ سامسونگ",
+    img: "/services/samsung-laptop.webp",
+    imgAlt: "تعمیر لپ تاپ سامسونگ",
+    descShort:
+      "تعمیرات سخت افزاری و نرم افزاری لپ تاپ سامسونگ شامل مشکل شارژ، تصویر، داغی، کندی و روشن نشدن. سرویس کامل و تست قبل از تحویل.",
+    descLong: `کاربران تمام مدل های لپ تاپ سامسونگ می توانند با مرکز تعمیرات لپ تاپ سامسونگ تماس گرفته و در صورت مشاهده هرگونه مشکل یا عدم کارایی در دستگاه خود ، خدمات تخصصی لازم را در نمایندگی تعمیرات لپ تاپ سامسونگ دریافت می کنند. خدمات ارائه شده در این مرکز فقط به یک سرویس خاص محدود نمی شود و کلیه تعمیرات سخت افزاری و نرم افزاری مربوط به تعمیر لپ تاپ های سامسونگ را شامل می شود.`,
+    bullets: [
+      "تعمیر فلت لپ تاپ سامسونگ",
+      "تعمیر باتری لپ تاپ سامسونگ",
+      "تعمیر مادربرد لپ تاپ سامسونگ",
+      "رفع مشکلات شارژر لپ تاپ سامسونگ",
+      "تعمیر و تعویض کیبورد لپ تاپ سامسونگ",
+      "تعمیر ال سی دی لپ تاپ سامسونگ",
+    ],
+    accent: "blue",
   },
+
   {
-    title: "تعمیر مانیتور سامسونگ",
-    desc:
-      "رفع مشکل تصویر، بک لایت، پیکسل سوخته، اتصالات و برد تغذیه. تست کامل قبل از تحویل و ارائه گارانتی.",
+    id: "aio",
+    title: "تعمیر تخصصی آل این وان سامسونگ",
+    img: "/services/samsung-aio.webp",
+    imgAlt: "تعمیر آل این وان سامسونگ",
+    descShort:
+      "تعمیر تخصصی All-in-One سامسونگ با عیب یابی دقیق، سرویس سیستم خنک کاری، بررسی برد و نمایشگر. مناسب برای مشکلات تصویر، کندی و روشن نشدن.",
+    descLong: `قبل از مراجعه به خدمات تخصصی ارائه شده توسط مرکز خدمات پس از فروش سامسونگ ، خوب است که به ساختار این دستگاه ، مزایا ، معایب و ویژگی های کلی آن نگاهی بیندازید. رایانه های جهانی یا AIO ها کاملاً لپ تاپ ، تبلت یا دسک تاپ نیستند. اگرچه می توانند همه این ها باشند.
+
+تعمیرات آل این وان های سامسونگ یکی از تخصصی ترین خدمات ارائه شده در نمایندگی تعمیرات آل این وان سامسونگ است که توسط تیمی از مجرب ترین متخصصان انجام می شود و از مدرن ترین تجهیزات در این زمینه استفاده می شود.`,
+    bullets: [
+      "تعمیر برد و پاور",
+      "رفع مشکل تصویر و بک لایت",
+      "سرویس فن و خنک کاری",
+      "رفع کندی و هنگ",
+      "تست کامل قبل از تحویل",
+    ],
+    accent: "cyan",
+  },
+
+  {
+    id: "tv",
+    title: "تعمیر تخصصی تلویزیون سامسونگ",
+    img: "/services/samsung-tv.webp",
+    imgAlt: "تعمیر تلویزیون سامسونگ",
+    descShort:
+      "عیب یابی و تعمیر تلویزیون سامسونگ شامل بک لایت، تصویر، برد پاور و مین برد. در صورت نیاز تعویض قطعات با کیفیت و تست دقیق قبل از تحویل.",
+    descLong: `آیا با روند تعمیر تلویزیون سامسونگ خود آشنا هستید؟ به طور کلی ، تلویزیون ها روند مشابهی دارند و قطعات رایج هستند. بعد از شنیدن مشکل از زبان شما ، نمایندگی تعمیرات سامسونگ مشکل را بررسی و برطرف می کند.
+
+در نمایندگی تعمیرات تلویزیون سامسونگ در کمترین زمان و با بالاترین کیفییت تعمیرات شما انجام می شود.`,
+    bullets: [
+      "رفع مشکل بک لایت و نور پس زمینه",
+      "تعمیر مین برد و برد پاور",
+      "رفع پرش تصویر و خطوط",
+      "تست کامل قبل از تحویل",
+    ],
+    accent: "blue",
+  },
+
+  {
+    id: "printer",
+    title: "تعمیر تخصصی پرینتر سامسونگ",
+    img: "/services/samsung-printer.webp",
+    imgAlt: "تعمیر پرینتر سامسونگ",
+    descShort:
+      "تعمیر پرینتر سامسونگ با ابزار تخصصی، رفع ایرادات چاپ و سرویس کامل. مناسب برای مشکلات یونیت لیزر، کاغذ کش و فیوزینگ.",
+    descLong: `تعمیر پرینتر سامسونگ یکی از خدمات ارائه شده در نمایندگی سامسونگ است که با تکیه بر تخصص و مهارت کارشناسان مرکز در بالاترین سطح کیفیت به کاربران این محصول ارائه می شود.`,
+    bullets: [
+      "تعمیر مین برد پرینتر سامسونگ",
+      "تعمیر کاغذکش پرینتر سامسونگ",
+      "تعمیر یونیت لیزر پرینتر سامسونگ",
+      "رفع مشکل سیاه شدن کاغذ",
+      "تعویض فیلم فیوزینگ پرینتر سامسونگ",
+    ],
+    accent: "cyan",
+  },
+
+  {
+    id: "computer",
+    title: "تعمیر تخصصی تجهیزات کامپیوتر سامسونگ",
+    img: "/services/samsung-computer.webp",
+    imgAlt: "تعمیر تجهیزات کامپیوتر سامسونگ",
+    descShort:
+      "تعمیر تخصصی تجهیزات رایانه ای و ماشین های اداری سامسونگ با عیب یابی علمی و کاهش هزینه های اضافی. سرویس دوره ای و تعمیر اصولی.",
+    descLong: `تعمیر تخصصی تجهیزات رایانه ای سامسونگ یکی از تخصصی ترین خدمات ارائه شده توسط نمایندگی تعمیرات سامسونگ است که توسط بهترین مهندسین سخت افزار انجام می شود.`,
+    bullets: [
+      "عیب یابی علمی و دقیق",
+      "رفع مشکلات برد و اتصالات",
+      "سرویس دوره ای برای افزایش عمر دستگاه",
+      "تست سلامت قطعات قبل از تحویل",
+    ],
+    accent: "blue",
+  },
+
+  {
+    id: "appliances",
+    title: "تعمیر لوازم خانگی سامسونگ",
+    img: "/services/samsung-appliances.webp",
+    imgAlt: "تعمیر لوازم خانگی سامسونگ",
+    descShort:
+      "تعمیر تخصصی یخچال، لباسشویی، ظرفشویی، کولرگازی و سایر لوازم خانگی سامسونگ با عیب یابی دقیق، قطعات مطمئن و اعلام هزینه قبل از انجام کار.",
+    descLong: `لوازم خانگی سامسونگ به کیفیت، طراحی مدرن و تکنولوژی های هوشمند معروف اند؛ اما حتی بهترین دستگاه ها هم ممکن است بعد از مدتی نیاز به بررسی، سرویس یا تعمیر پیدا کنند. اینجاست که انتخاب یک نمایندگی معتبر لوازم خانگی سامسونگ اهمیت پیدا می کند؛ جایی که هم قطعات مطمئن ارائه شود، هم عیب یابی دقیق انجام شود و هم دستگاه شما با اصول استاندارد به حالت ایده آل برگردد.`,
+    bullets: [
+      "تعمیر یخچال و ساید بای ساید سامسونگ",
+      "تعمیر لباسشویی و خشک کن",
+      "تعمیر ظرفشویی سامسونگ",
+      "تعمیر مایکروفر و سولاردام",
+      "تعمیر کولرگازی و اسپلیت",
+      "تعمیر تلویزیون و سیستم های صوتی",
+    ],
+    accent: "cyan",
   },
 ];
 ---
-<section id="services" class="mt-10 scroll-mt-24">
-  <div class="flex items-end justify-between gap-4">
-    <h2 class="text-xl font-bold md:text-2xl">خدمات تخصصی</h2>
-    <a class="text-sm text-slate-300 hover:text-white transition" href="/services">جزئیات بیشتر در صفحه خدمات</a>
+
+<section id="services" class="sf mt-10 scroll-mt-24" aria-label="خدمات تخصصی سام سرویس">
+  <div class="sf-head">
+    <div>
+      <h2 class="sf-title">خدمات تخصصی</h2>
+      <p class="sf-sub">هر سرویس با عیب یابی دقیق، قطعات مطمئن و اعلام هزینه قبل از تعمیر</p>
+    </div>
+
+    <a class="sf-link led-ring" href="/services">جزئیات بیشتر در صفحه خدمات</a>
   </div>
 
-  <div class="mt-5 grid gap-4 md:grid-cols-3">
-    {services.map((s) => (
-      <article class="rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/7 transition">
-        <div class="text-base font-semibold">{s.title}</div>
-        <p class="mt-3 text-sm text-slate-300 leading-relaxed">{s.desc}</p>
-        <div class="mt-5">
-          <a class="inline-flex rounded-2xl border border-white/15 px-4 py-2 text-sm hover:border-white/30 transition" href="/contact">
-            مشاوره و ثبت سفارش
-          </a>
+  <div class="sf-list" role="list">
+    {services.map((s, idx) => (
+  <article
+    id={s.id}
+    class={`sf-row led-surface ${idx % 2 === 1 ? "is-rev" : ""}`}
+    role="listitem"
+    aria-label={s.title}
+  >
+        <div class="sf-led" aria-hidden="true"></div>
+
+        <div class="sf-media">
+          <img
+            src={s.img}
+            alt={s.imgAlt}
+            width="900"
+            height="600"
+            loading="lazy"
+            decoding="async"
+            class="sf-img"
+          />
+          <div class="sf-mediaGlow" aria-hidden="true"></div>
+          <div class={`sf-badge is-${s.accent}`} aria-hidden="true">
+            <span class="sf-dot"></span>
+            Samsung Service
+          </div>
+        </div>
+
+        <div class="sf-body">
+          <h3 class="sf-h3">{s.title}</h3>
+          <p class="sf-p">{s.descShort}</p>
+
+          <ul class="sf-bullets" aria-label="خدمات کلیدی">
+            {s.bullets.map((b) => (
+              <li class="sf-bullet">
+                <span class="sf-check" aria-hidden="true"></span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+
+          <details class="sf-more">
+            <summary class="sf-moreBtn led-ring">ادامه توضیحات</summary>
+            <div class="sf-moreBody">
+              <p class="sf-moreText">{s.descLong}</p>
+            </div>
+          </details>
+
+          <div class="sf-ctaRow">
+            <a class="sf-cta sf-ctaPrimary led-ring" href="tel:02191300348">تماس و ثبت سفارش</a>
+            <a class="sf-cta sf-ctaGhost" href="/contact">مشاوره و پیگیری</a>
+          </div>
         </div>
       </article>
     ))}
   </div>
 </section>
+
+<style>
+  .sf {
+    --sx: 0, 200, 255;
+    --ink: rgba(241, 245, 249, 0.96);
+    --muted: rgba(226, 232, 240, 0.75);
+  }
+
+  .sf-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .sf-title {
+    font-size: 1.25rem;
+    font-weight: 950;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .sf-sub {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.9;
+  }
+
+  .sf-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 18px;
+    padding: 10px 12px;
+    font-weight: 900;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: rgba(226,232,240,0.92);
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  }
+  .sf-link:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .sf-list {
+    margin-top: 16px;
+    display: grid;
+    gap: 14px;
+  }
+
+  /* Row */
+  .sf-row {
+    position: relative;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.035);
+    box-shadow: 0 26px 90px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.12);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    scroll-margin-top: 120px;
+  }
+
+  @media (max-width: 767px) {
+  .sf-row {
+    scroll-margin-top: 140px;
+  }
+}
+
+  /* LED surface border */
+  .sf-led {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--a),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 292deg,
+      rgba(var(--sx), 0.45) 314deg,
+      rgba(var(--sx), 0.95) 330deg,
+      rgba(var(--sx), 0.45) 346deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    filter: saturate(1.25);
+    opacity: 0.65;
+    animation: sf-rot 7.4s linear infinite;
+  }
+
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes sf-rot { to { --a: 360deg; } }
+
+  .sf-media {
+    position: relative;
+    padding: 12px;
+  }
+
+  .sf-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2,6,23,0.35);
+    box-shadow: 0 20px 65px rgba(0,0,0,0.45);
+  }
+
+  .sf-mediaGlow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(600px 220px at 25% 10%, rgba(var(--sx), 0.22), transparent 55%);
+    opacity: 0.8;
+  }
+
+  .sf-badge {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2,6,23,0.55);
+    color: rgba(226,232,240,0.90);
+    font-size: 0.78rem;
+    font-weight: 950;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .sf-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(var(--sx), 0.95);
+    box-shadow: 0 0 18px rgba(var(--sx), 0.55);
+  }
+
+  .sf-badge.is-blue .sf-dot {
+    background: rgba(80, 160, 255, 0.95);
+    box-shadow: 0 0 18px rgba(80, 160, 255, 0.50);
+  }
+  .sf-badge.is-cyan .sf-dot {
+    background: rgba(var(--sx), 0.95);
+    box-shadow: 0 0 18px rgba(var(--sx), 0.55);
+  }
+
+  .sf-body {
+    padding: 2px 16px 16px;
+  }
+
+  .sf-h3 {
+    margin: 6px 0 0;
+    color: rgba(241,245,249,0.96);
+    font-weight: 950;
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+
+  .sf-p {
+    margin: 10px 0 0;
+    color: rgba(226,232,240,0.80);
+    line-height: 2.0;
+    font-size: 0.92rem;
+  }
+
+  .sf-bullets {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+
+  .sf-bullet {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 10px;
+    align-items: start;
+    color: rgba(226,232,240,0.84);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  .sf-check {
+    width: 14px;
+    height: 14px;
+    border-radius: 6px;
+    margin-top: 4px;
+    background: rgba(var(--sx), 0.25);
+    border: 1px solid rgba(var(--sx), 0.35);
+    box-shadow: 0 0 14px rgba(var(--sx), 0.25);
+    position: relative;
+  }
+  .sf-check::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 4px;
+    background: rgba(var(--sx), 0.75);
+  }
+
+  .sf-more {
+    margin-top: 12px;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .sf-moreBtn {
+    cursor: pointer;
+    border-radius: 18px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(226,232,240,0.92);
+    font-weight: 950;
+    font-size: 0.88rem;
+    list-style: none;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sf-moreBtn::-webkit-details-marker { display: none; }
+
+  .sf-moreBody {
+    padding: 12px 0 0;
+  }
+
+  .sf-moreText {
+    margin: 0;
+    color: rgba(226,232,240,0.78);
+    line-height: 2.05;
+    font-size: 0.9rem;
+    white-space: pre-line;
+  }
+
+  .sf-ctaRow {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .sf-cta {
+    border-radius: 18px;
+    padding: 11px 14px;
+    font-weight: 950;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+  }
+
+  .sf-ctaPrimary {
+    background: rgba(0, 200, 255, 0.92);
+    color: rgba(2, 6, 23, 0.95);
+    border: 1px solid rgba(0, 200, 255, 0.32);
+  }
+  .sf-ctaPrimary:hover {
+    transform: translateY(-1px);
+    background: rgba(90, 225, 255, 0.98);
+  }
+
+  .sf-ctaGhost {
+    background: rgba(255,255,255,0.03);
+    color: rgba(241,245,249,0.92);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .sf-ctaGhost:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* Desktop layout: image left + text right, alternating rows */
+  @media (min-width: 900px) {
+    .sf-row {
+      grid-template-columns: minmax(360px, 44%) 1fr;
+      align-items: stretch;
+    }
+
+    .sf-row.is-rev {
+      grid-template-columns: 1fr minmax(360px, 44%);
+    }
+
+    .sf-row.is-rev .sf-media { order: 2; }
+    .sf-row.is-rev .sf-body { order: 1; }
+
+    .sf-body { padding: 14px 18px 18px; }
+    .sf-media { padding: 16px; }
+    .sf-img { aspect-ratio: 16 / 10; height: 100%; max-height: 360px; }
+  }
+
+  /* Reusable LED ring (if you already have global, you can remove this block) */
+  .led-ring { position: relative; overflow: hidden; }
+  .led-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--b),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 292deg,
+      rgba(var(--sx), 0.45) 314deg,
+      rgba(var(--sx), 0.95) 330deg,
+      rgba(var(--sx), 0.45) 346deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    filter: saturate(1.25);
+    opacity: 0.9;
+    animation: sf-rot2 6.2s linear infinite;
+  }
+  .led-ring::after {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--b),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 305deg,
+      rgba(var(--sx), 0.30) 326deg,
+      rgba(var(--sx), 0.60) 340deg,
+      rgba(var(--sx), 0.30) 354deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    filter: blur(16px) saturate(1.25);
+    opacity: 0.50;
+    mix-blend-mode: screen;
+    animation: sf-rot2 6.2s linear infinite;
+  }
+
+  @property --b {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes sf-rot2 { to { --b: 360deg; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sf-led, .led-ring::before, .led-ring::after { animation: none; }
+  }
+</style>

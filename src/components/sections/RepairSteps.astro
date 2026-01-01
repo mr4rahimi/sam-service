@@ -8,19 +8,352 @@ const steps = [
   "تحویل دستگاه با گارانتی کتبی",
 ];
 ---
-<section class="mt-10">
-  <h2 class="text-xl font-bold md:text-2xl">مراحل تعمیر</h2>
 
-  <ol class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<section class="rt mt-10" aria-label="مراحل تعمیر">
+  <div class="rt-head">
+    <h2 class="rt-title">مراحل تعمیر</h2>
+    <p class="rt-sub">فرآیند شفاف، سریع و مرحله‌به‌مرحله</p>
+  </div>
+
+  <ol class="rt-timeline">
     {steps.map((s, i) => (
-      <li class="rounded-3xl border border-white/10 bg-white/5 p-5">
-        <div class="flex items-center gap-3">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-emerald-500/20 text-emerald-200 font-bold">
-            {i + 1}
-          </span>
-          <div class="font-semibold">{s}</div>
+      <li class="rt-item" style={`--idx:${i};`} aria-label={`مرحله ${i + 1}: ${s}`}>
+        <div class="rt-dot" aria-hidden="true">
+          <span class="rt-dotCore">{i + 1}</span>
+        </div>
+
+        <div class="rt-card">
+          <div class="rt-cardLed" aria-hidden="true"></div>
+          <div class="rt-cardTop">
+            <div class="rt-stepTitle">مرحله {i + 1}</div>
+            <div class="rt-stepText">{s}</div>
+          </div>
+          <div class="rt-cardMeta" aria-hidden="true">
+            <span class="rt-chip">Samsung Service</span>
+            <span class="rt-miniDot"></span>
+          </div>
         </div>
       </li>
     ))}
   </ol>
 </section>
+
+<style>
+  .rt {
+    --sx: 0, 200, 255;      /* samsung-ish cyan */
+    --ink: rgba(241, 245, 249, 0.96);
+    --muted: rgba(226, 232, 240, 0.76);
+  }
+
+  .rt-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .rt-title {
+    font-size: 1.25rem;
+    font-weight: 950;
+  }
+
+  .rt-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* ---------------- Timeline Container ---------------- */
+  .rt-timeline {
+    margin-top: 18px;
+    list-style: none;
+    padding: 0;
+    position: relative;
+
+    display: grid;
+    gap: 14px;
+  }
+
+  /* LED vertical line (mobile) */
+  .rt-timeline::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 18px; /* mobile dot alignment */
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+}
+
+  /* animated LED head moving along line */
+  .rt-timeline::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  width: 3px;
+  height: 120px;
+  border-radius: 999px;
+
+  /* IMPORTANT: define the travel area */
+  top: 6px;
+  bottom: 6px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(var(--sx), 0),
+    rgba(var(--sx), 0.90),
+    rgba(var(--sx), 0)
+  );
+  filter: blur(0.2px) saturate(1.25);
+  opacity: 0.95;
+
+  animation: rt-scan 2.6s ease-in-out infinite;
+}
+
+  @keyframes rt-scan {
+  0%   { top: 6px; }
+  50%  { top: calc(100% - 120px - 6px); }
+  100% { top: 6px; }
+}
+
+  /* ---------------- Timeline Items ---------------- */
+  .rt-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .rt-dot {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    z-index: 2;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+      0 18px 55px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255,255,255,0.14);
+  }
+
+  /* LED ring around dot */
+  .rt-dot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    pointer-events: none;
+
+    background: conic-gradient(
+      from var(--a),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 290deg,
+      rgba(var(--sx), 0.55) 312deg,
+      rgba(var(--sx), 1.00) 328deg,
+      rgba(var(--sx), 0.55) 344deg,
+      rgba(var(--sx), 0) 360deg
+    );
+
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+    mix-blend-mode: screen;
+    filter: saturate(1.35);
+    opacity: 0.95;
+    animation: rt-rot 4.8s linear infinite;
+  }
+
+  .rt-dotCore {
+    font-weight: 950;
+    color: rgba(var(--sx), 0.95);
+    font-size: 0.95rem;
+  }
+
+  /* ---------------- Cards ---------------- */
+  .rt-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    padding: 16px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+    background:
+      radial-gradient(900px 450px at 20% 0%, rgba(255,255,255,0.06), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.03));
+
+    box-shadow:
+      0 16px 55px rgba(0,0,0,0.40),
+      inset 0 1px 0 rgba(255,255,255,0.12);
+
+    transform: translateZ(0);
+    transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+  }
+
+  .rt-cardLed {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 2px;
+
+    background: conic-gradient(
+      from var(--a),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 292deg,
+      rgba(var(--sx), 0.40) 314deg,
+      rgba(var(--sx), 0.85) 330deg,
+      rgba(var(--sx), 0.40) 346deg,
+      rgba(var(--sx), 0) 360deg
+    );
+
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+    filter: saturate(1.25);
+    mix-blend-mode: screen;
+    opacity: 0.7;
+    animation: rt-rot 6.2s linear infinite;
+  }
+
+  .rt-cardTop {
+    position: relative;
+    z-index: 1;
+  }
+
+  .rt-stepTitle {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    font-weight: 900;
+    color: rgba(203, 213, 225, 0.8);
+  }
+
+  .rt-stepText {
+    margin-top: 6px;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .rt-cardMeta {
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0.9;
+  }
+
+  .rt-chip {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: rgba(203, 213, 225, 0.9);
+  }
+
+  .rt-miniDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(var(--sx), 0.9);
+    box-shadow: 0 0 18px rgba(var(--sx), 0.55);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .rt-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.14);
+      box-shadow:
+        0 24px 75px rgba(0,0,0,0.52),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+    .rt-card:hover .rt-cardLed {
+      opacity: 0.95;
+    }
+  }
+
+  /* ---------------- Desktop: center line + alternating sides ---------------- */
+@media (min-width: 1024px) {
+  .rt-timeline {
+    gap: 18px;
+  }
+
+  /* center line */
+  .rt-timeline::before,
+  .rt-timeline::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+  }
+
+  /* IMPORTANT: make each row a 3-column layout that can position the dot
+     relative to the card height */
+  .rt-item {
+    grid-template-columns: 1fr 64px 1fr;
+    gap: 18px;
+    align-items: stretch; /* so the middle column has full row height */
+  }
+
+  /* middle column container behavior */
+  .rt-dot {
+    grid-column: 2;
+    justify-self: center;
+
+    /* key: center dot vertically based on the row height (same as card height) */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0; /* remove old hack */
+  }
+
+  .rt-card {
+    max-width: 520px;
+    align-self: stretch;
+  }
+
+  /* odd on right, even on left */
+  .rt-item:nth-child(odd) .rt-card {
+    grid-column: 3;
+    justify-self: start;
+  }
+
+  .rt-item:nth-child(even) .rt-card {
+    grid-column: 1;
+    justify-self: end;
+  }
+}
+
+
+  /* Gradient rotation */
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  @keyframes rt-rot {
+    to { --a: 360deg; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rt-timeline::after,
+    .rt-dot::before,
+    .rt-cardLed {
+      animation: none;
+    }
+  }
+</style>
+

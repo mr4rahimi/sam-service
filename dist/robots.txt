@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://asus-repairer.ir/sitemap-index.xml
+Sitemap: https://sam-service.org/sitemap-index.xml

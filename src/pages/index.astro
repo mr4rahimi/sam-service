@@ -3,15 +3,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../config/site";
 
 import Hero from "../components/sections/Hero.astro";
+import PrimaryImage from "../components/sections/PrimaryImage.astro";
 import Features from "../components/sections/Features.astro";
 import ServicesTeaser from "../components/sections/ServicesTeaser.astro";
 import Coverage from "../components/sections/Coverage.astro";
 import RepairSteps from "../components/sections/RepairSteps.astro";
 import CommonIssues from "../components/sections/CommonIssues.astro";
 import ServicesFull from "../components/sections/ServicesFull.astro";
-import FAQ from "../components/sections/FAQ.astro";
 import Reviews from "../components/sections/Reviews.astro";
 import CTA from "../components/sections/CTA.astro";
+import AboutTeaser from "../components/AboutTeaser.astro";
 
 const title = "نمایندگی تعمیرات سامسونگ در تهران";
 const description =
@@ -80,14 +81,18 @@ const schema = [
 ---
 
 <BaseLayout title={title} description={description} canonical={canonical} schema={schema}>
+  <PrimaryImage />
   <Hero />
   <Features />
   <ServicesTeaser />
-  <Coverage />
   <RepairSteps />
-  <CommonIssues />
+  <Coverage />
   
-  <FAQ />
+  <CommonIssues />
+  <ServicesFull />
+  
+
   <Reviews />
+  <AboutTeaser />
   <CTA />
 </BaseLayout>

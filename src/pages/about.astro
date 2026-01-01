@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../config/site";
+import AboutTeaser from "../components/AboutTeaser.astro";
 
 const title = "درباره ما";
 const description =
@@ -24,32 +25,287 @@ const schema = [
     telephone: SITE.phone,
   },
 ];
+const goals = [
+  "کوتاه کردن زمان تعمیر و احترام به وقت شما",
+  "استفاده از قطعات اورجینال و با کیفت بالا",
+  "استفاده از افراد مجرب و با تخصص بالا",
+  "کم کردن هزینه تعمیر تا حد ممکن برای شما عزیزان",
+];
 ---
 
 <BaseLayout title={title} description={description} canonical={canonical} schema={schema}>
-  <section class="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-    <h1 class="text-2xl font-extrabold md:text-4xl">درباره نمایندگی تعمیرات سامسونگ</h1>
-    <p class="mt-4 text-slate-300 leading-relaxed">
-      هدف ما ارائه خدمات تعمیرات تخصصی samsung با کیفیت بالا، زمان تحویل سریع و قیمت گذاری منصفانه است.
-      تمامی تعمیرات پس از عیب یابی دقیق انجام می شود و پیش از شروع کار، هزینه به شما اعلام خواهد شد.
-    </p>
-    <p class="mt-4 text-slate-300 leading-relaxed">
-        نمایندگی تعمیرات سامسونگ با بهره مندی از برترین مهندسین و متخصصین تعمیرات و با بهره گیری از سال ها تجربه در امر تعمیرات سخت افزار و همچنین با برخورداری از بروزترین تجهیزات الکترونیکی، کلیه تعمیرات سخت افزاری محصولات سامسونگ را با قطعات اورجینال و مناسب ترین هزینه به مشتریان عزیز ارائه می دهد. وجه تمایز نمایندگی تعمیرات سامسونگ را میتوان قابل اطمینان بودن آن دانست، زیرا همواره اعتماد و اطمینان به یک مجموعه، موجب آسودگی خیال مشتریان به آن مجموعه میشود.
-    </p>
+  <main class="mx-auto max-w-6xl px-4">
+    <!-- About teaser (reusable) -->
+    <AboutTeaser class="mt-10" />
 
-    <div class="mt-8 grid gap-4 md:grid-cols-3">
-      <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-6">
-        <div class="font-semibold">شفافیت</div>
-        <p class="mt-2 text-sm text-slate-300">اعلام هزینه قبل از تعمیر و توضیح کامل فرآیند.</p>
+    <!-- Licenses -->
+    <section class="lic mt-10" aria-label="مجوزها و گواهی ها">
+      <div class="lic-head">
+        <h2 class="lic-title">مجوزها و گواهی ها</h2>
+        <p class="lic-sub">نمایش مجوزهای مجموعه برای افزایش اعتماد و شفافیت</p>
       </div>
-      <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-6">
-        <div class="font-semibold">کیفیت</div>
-        <p class="mt-2 text-sm text-slate-300">استفاده از قطعات اورجینال و تست نهایی.</p>
+
+      <div class="lic-grid">
+        <figure class="lic-card led-surface">
+          <div class="lic-led" aria-hidden="true"></div>
+          <img src="/about/mojavez-1.webp" alt="مجوز 1 سام سرویس" width="400" height="618" loading="lazy" decoding="async" />
+        </figure>
+
+        <figure class="lic-card led-surface">
+          <div class="lic-led" aria-hidden="true"></div>
+          <img src="/about/mojavez-2.webp" alt="مجوز 2 سام سرویس" width="400" height="577" loading="lazy" decoding="async" />
+        </figure>
+
+        <figure class="lic-card led-surface is-wide">
+          <div class="lic-led" aria-hidden="true"></div>
+          <img src="/about/mojavez-3.webp" alt="مجوز 3 سام سرویس" width="400" height="275" loading="lazy" decoding="async" />
+        </figure>
+
+        <figure class="lic-card led-surface is-wide">
+          <div class="lic-led" aria-hidden="true"></div>
+          <img src="/about/mojavez-4.webp" alt="مجوز 4 سام سرویس" width="400" height="264" loading="lazy" decoding="async" />
+        </figure>
       </div>
-      <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-6">
-        <div class="font-semibold">گارانتی</div>
-        <p class="mt-2 text-sm text-slate-300">تحویل همراه با گارانتی کتبی معتبر.</p>
+    </section>
+
+    <!-- Goals -->
+    <section class="gl mt-10" aria-label="اهداف سام سرویس">
+      <div class="gl-head">
+        <h2 class="gl-title">اهداف</h2>
+        <p class="gl-sub">بزرگ ترین هدف ما رضایتمندی شماست و این هدف تنها به چند عمل بستگی دارد</p>
       </div>
-    </div>
-  </section>
+
+      <div class="gl-grid">
+        {goals.map((g, i) => (
+          <article class="gl-card" aria-label={`هدف ${i + 1}`}>
+            <div class="gl-led" aria-hidden="true"></div>
+            <div class="gl-top">
+              <span class="gl-num">{i + 1}</span>
+              <div class="gl-txt">{g}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <div class="pb-16"></div>
+  </main>
+
+  <style>
+    /* --- Licenses --- */
+    .lic {
+      --sx: 0, 200, 255;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 26px 90px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+      padding: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lic-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .lic-title {
+      font-size: 1.15rem;
+      font-weight: 950;
+      margin: 0;
+      color: rgba(241,245,249,0.96);
+    }
+
+    .lic-sub {
+      margin: 0;
+      color: rgba(226,232,240,0.74);
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+
+    .lic-grid {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 720px) {
+      .lic-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .lic-card.is-wide {
+        grid-column: span 2;
+      }
+    }
+
+    .lic-card {
+      position: relative;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(2,6,23,0.35);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.10);
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .lic-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 18px;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .lic-led {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      padding: 2px;
+      background: conic-gradient(
+        from var(--a),
+        rgba(var(--sx), 0) 0deg,
+        rgba(var(--sx), 0) 292deg,
+        rgba(var(--sx), 0.45) 314deg,
+        rgba(var(--sx), 0.95) 330deg,
+        rgba(var(--sx), 0.45) 346deg,
+        rgba(var(--sx), 0) 360deg
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      mix-blend-mode: screen;
+      opacity: 0.75;
+      animation: lic-rot 7.2s linear infinite;
+    }
+
+    @property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+    @keyframes lic-rot { to { --a: 360deg; } }
+
+    /* --- Goals --- */
+    .gl {
+      --sx: 0, 200, 255;
+    }
+
+    .gl-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .gl-title {
+      font-size: 1.15rem;
+      font-weight: 950;
+      margin: 0;
+      color: rgba(241,245,249,0.96);
+    }
+
+    .gl-sub {
+      margin: 0;
+      color: rgba(226,232,240,0.74);
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+
+    .gl-grid {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 720px) {
+      .gl-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .gl-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .gl-card {
+      position: relative;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background:
+        radial-gradient(600px 260px at 18% 0%, rgba(255,255,255,0.06), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      box-shadow: 0 22px 80px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.12);
+      overflow: hidden;
+      padding: 14px;
+      transform: translateZ(0);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .gl-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: 0 28px 95px rgba(0,0,0,0.48), inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .gl-led {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      padding: 2px;
+      background: conic-gradient(
+        from var(--b),
+        rgba(var(--sx), 0) 0deg,
+        rgba(var(--sx), 0) 292deg,
+        rgba(var(--sx), 0.40) 314deg,
+        rgba(var(--sx), 0.90) 330deg,
+        rgba(var(--sx), 0.40) 346deg,
+        rgba(var(--sx), 0) 360deg
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      mix-blend-mode: screen;
+      opacity: 0.55;
+      animation: gl-rot 6.6s linear infinite;
+    }
+
+    @property --b { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+    @keyframes gl-rot { to { --b: 360deg; } }
+
+    .gl-top {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+    }
+
+    .gl-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 950;
+      color: rgba(2,6,23,0.92);
+      background: rgba(0,200,255,0.92);
+      border: 1px solid rgba(0,200,255,0.30);
+      box-shadow: 0 0 24px rgba(0,200,255,0.18);
+    }
+
+    .gl-txt {
+      font-weight: 900;
+      color: rgba(241,245,249,0.93);
+      line-height: 1.9;
+      font-size: 0.92rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lic-led, .gl-led { animation: none; }
+      .gl-card { transition: none; }
+    }
+  </style>
 </BaseLayout>

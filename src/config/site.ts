@@ -17,7 +17,7 @@ export const SITE = {
     postalCode: "1586983711", 
   },
   addressWest: {
-    street: "تهران، سعادت آباد، میدان کاج، کوچه دوازدهم علی اکبر، پلاک 30، مجتمع اداری کسری، طبقه اول واحد 5", // ✅ دقیق کن
+    street: "تهران، سعادت آباد، میدان کاج، کوچه دوازدهم علی اکبر، پلاک 30، مجتمع اداری کسری، طبقه اول واحد 5", 
     city: "Tehran",
     region: "Tehran",
     country: "IR",
@@ -207,4 +207,5 @@ export const NAV = [
   { label: "خدمات", href: "/services" },
   { label: "درباره ما", href: "/about" },
   { label: "تماس با ما", href: "/contact" },
+  { label: " مقالات ", href: "/blog" },
 ];

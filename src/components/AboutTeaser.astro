@@ -1,0 +1,418 @@
+---
+const {
+  title = "درباره نمایندگی تعمیرات سامسونگ در تهران",
+  text = `از سال 1393 موفق به دریافت نمایندگی تعمیرات سامسونگ از خود این کمپانی بزرگ شدیم و با لطف خدا و اعتماد شمال مشتریان عزیز تا به حال توانسته ایم نیاز تمامی مشتریان خود را به بهترین وجه ممکن رفع و رجوع کنیم. با افتخار میتوانیم ادعا کنیم که تنها نمایندگی رسمی تعمیرات سامسونگ در ایران هستیم پس با خیالی راحت دستگاه خود را برای تعمیر به ما بسپارید`,
+  ctaHref = "/contact",
+  ctaText = "مشاوره و ثبت سفارش",
+  badge = "Samsung Service",
+  imageSrc = "/about/about-sam-service.webp",
+  imageAlt = "نمایندگی تعمیرات سامسونگ سام سرویس",
+  class: className = "",
+} = Astro.props;
+---
+
+<section class={`abt ${className}`} aria-label={title}>
+  <div class="abt-shell">
+    <div class="abt-led" aria-hidden="true"></div>
+
+    <div class="abt-grid">
+      <!-- Right: Content -->
+      <div class="abt-head">
+        <div class="abt-badge" aria-hidden="true">
+          <span class="abt-dot"></span>
+          {badge}
+        </div>
+
+        <h2 class="abt-title">{title}</h2>
+        <p class="abt-text">{text}</p>
+
+        <div class="abt-actions">
+          <a class="abt-cta led-ring" href={ctaHref}>{ctaText}</a>
+          <a class="abt-ghost" href="/services">مشاهده خدمات</a>
+        </div>
+      </div>
+
+      <!-- Left: Image -->
+      <div class="abt-media" aria-label="تصویر معرفی مجموعه">
+        <div class="abt-mediaShell">
+          <div class="abt-mediaLed" aria-hidden="true"></div>
+          <div class="abt-mediaGlass" aria-hidden="true"></div>
+
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            width="400"
+            height="300"
+            loading="lazy"
+            decoding="async"
+            class="abt-mediaImg"
+          />
+
+          <div class="abt-mediaCap" aria-hidden="true">
+            <span class="abt-capDot"></span>
+            <span>مرکز تخصصی تعمیرات سامسونگ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="abt-cards" aria-hidden="true">
+      <div class="abt-card">
+        <div class="abt-cardTop">
+          <span class="abt-mini"></span>
+          <div class="abt-cardTitle">عیب یابی دقیق</div>
+        </div>
+        <div class="abt-cardDesc">بررسی تخصصی و اعلام هزینه قبل از تعمیر</div>
+      </div>
+
+      <div class="abt-card">
+        <div class="abt-cardTop">
+          <span class="abt-mini"></span>
+          <div class="abt-cardTitle">قطعات اورجینال</div>
+        </div>
+        <div class="abt-cardDesc">استفاده از قطعات مطمئن با کیفیت بالا</div>
+      </div>
+
+      <div class="abt-card">
+        <div class="abt-cardTop">
+          <span class="abt-mini"></span>
+          <div class="abt-cardTitle">گارانتی کتبی</div>
+        </div>
+        <div class="abt-cardDesc">تحویل دستگاه همراه با گارانتی معتبر</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .abt {
+    --sx: 0, 200, 255;
+    --ink: rgba(241,245,249,0.96);
+    --muted: rgba(226,232,240,0.78);
+  }
+
+  .abt-shell {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background:
+      radial-gradient(900px 420px at 20% 0%, rgba(255,255,255,0.06), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+    box-shadow: 0 30px 95px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12);
+    padding: 16px;
+  }
+
+  .abt-led {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--a),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 292deg,
+      rgba(var(--sx), 0.45) 314deg,
+      rgba(var(--sx), 0.95) 330deg,
+      rgba(var(--sx), 0.45) 346deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    filter: saturate(1.25);
+    opacity: 0.7;
+    animation: abt-rot 7s linear infinite;
+  }
+
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes abt-rot { to { --a: 360deg; } }
+
+  /* --------- GRID (content + image) --------- */
+  .abt-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 14px;
+    align-items: start;
+  }
+
+  @media (min-width: 980px) {
+    .abt-grid {
+      grid-template-columns: 1.25fr 0.9fr; /* text | image */
+      gap: 18px;
+      align-items: stretch;
+    }
+  }
+
+  /* --------- Content --------- */
+  .abt-head {
+    padding: 8px 8px 2px;
+  }
+
+  .abt-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2,6,23,0.55);
+    color: rgba(226,232,240,0.90);
+    font-weight: 950;
+    font-size: 0.78rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .abt-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(var(--sx), 0.95);
+    box-shadow: 0 0 18px rgba(var(--sx), 0.55);
+  }
+
+  .abt-title {
+    margin: 12px 0 0;
+    font-size: 1.2rem;
+    font-weight: 950;
+    color: var(--ink);
+    line-height: 1.8;
+  }
+
+  .abt-text {
+    margin: 10px 0 0;
+    color: rgba(226,232,240,0.80);
+    line-height: 2.05;
+    font-size: 0.92rem;
+    max-width: 72ch;
+  }
+
+  .abt-actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .abt-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    padding: 11px 14px;
+    font-weight: 950;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: rgba(2,6,23,0.95);
+    background: rgba(0,200,255,0.92);
+    border: 1px solid rgba(0,200,255,0.30);
+    transition: transform 170ms ease, background-color 170ms ease;
+  }
+  .abt-cta:hover { transform: translateY(-1px); background: rgba(85,225,255,0.98); }
+
+  .abt-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    padding: 11px 14px;
+    font-weight: 950;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: rgba(241,245,249,0.92);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: transform 170ms ease, border-color 170ms ease, background-color 170ms ease;
+  }
+  .abt-ghost:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.05); }
+
+  /* --------- Image block --------- */
+  .abt-media {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .abt-mediaShell {
+    position: relative;
+    width: 100%;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2,6,23,0.35);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12);
+    overflow: hidden;
+    padding: 10px;
+    transform: translateZ(0);
+  }
+
+  .abt-mediaLed {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--c),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 292deg,
+      rgba(var(--sx), 0.40) 314deg,
+      rgba(var(--sx), 0.90) 330deg,
+      rgba(var(--sx), 0.40) 346deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    opacity: 0.70;
+    animation: abt-rot3 6.6s linear infinite;
+  }
+
+  .abt-mediaGlass {
+    position: absolute;
+    inset: 10px;
+    border-radius: 22px;
+    pointer-events: none;
+    background: linear-gradient(160deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    opacity: 0.9;
+  }
+
+  .abt-mediaImg {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+
+  .abt-mediaCap {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 14px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2,6,23,0.55);
+    color: rgba(226,232,240,0.90);
+    font-weight: 900;
+    font-size: 0.78rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: fit-content;
+    max-width: calc(100% - 32px);
+  }
+
+  .abt-capDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(var(--sx), 0.95);
+    box-shadow: 0 0 18px rgba(var(--sx), 0.55);
+  }
+
+  @property --c { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+  @keyframes abt-rot3 { to { --c: 360deg; } }
+
+  /* --------- Cards --------- */
+  .abt-cards {
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+    padding: 0 8px 8px;
+  }
+
+  .abt-card {
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2,6,23,0.35);
+    box-shadow: 0 18px 55px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.10);
+    padding: 12px 12px;
+  }
+
+  .abt-cardTop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .abt-mini {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(var(--sx), 0.9);
+    box-shadow: 0 0 16px rgba(var(--sx), 0.45);
+  }
+
+  .abt-cardTitle {
+    font-weight: 950;
+    color: rgba(241,245,249,0.92);
+    font-size: 0.92rem;
+  }
+
+  .abt-cardDesc {
+    margin-top: 6px;
+    color: rgba(226,232,240,0.75);
+    font-size: 0.86rem;
+    line-height: 1.9;
+  }
+
+  @media (min-width: 900px) {
+    .abt-shell { padding: 18px; }
+    .abt-cards { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* LED ring reusable */
+  .led-ring { position: relative; overflow: hidden; }
+  .led-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--b),
+      rgba(var(--sx), 0) 0deg,
+      rgba(var(--sx), 0) 292deg,
+      rgba(var(--sx), 0.45) 314deg,
+      rgba(var(--sx), 0.95) 330deg,
+      rgba(var(--sx), 0.45) 346deg,
+      rgba(var(--sx), 0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    animation: abt-rot2 6.2s linear infinite;
+  }
+  @property --b { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+  @keyframes abt-rot2 { to { --b: 360deg; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .abt-led, .led-ring::before, .abt-mediaLed { animation: none; }
+  }
+</style>

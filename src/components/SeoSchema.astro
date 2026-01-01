@@ -1,0 +1,248 @@
+---
+const { schemas = [] } = Astro.props;
+
+const baseUrl = "https://sam-service.org";
+const nowIso = new Date().toISOString();
+
+
+const globalSchemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
+    "url": baseUrl,
+    "name": "سام سرویس | نمایندگی تعمیرات سامسونگ",
+    "inLanguage": "fa-IR",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${baseUrl}/?s={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  },
+
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${baseUrl}/#organization`,
+    "name": "سام سرویس",
+    "alternateName": "نمایندگی تعمیرات سامسونگ سام سرویس",
+    "url": baseUrl,
+    "logo": `${baseUrl}/samsung-logo.webp`,
+    "telephone": "+982191300348",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+982191300348",
+        "contactType": "customer support",
+        "areaServed": "IR",
+        "availableLanguage": ["fa"]
+      }
+    ],
+    "sameAs": [
+    ]
+  }
+];
+
+const homePageSchemas = [
+
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${baseUrl}/#localbusiness`,
+    "name": "نمایندگی تعمیرات سامسونگ در تهران | سام سرویس",
+    "url": baseUrl,
+    "image": `${baseUrl}/samsung-logo.webp`,
+    "telephone": "+982191300348",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IR",
+      "addressRegion": "Tehran"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Tehran" }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday","Sunday","Monday","Tuesday","Wednesday"],
+        "opens": "09:00",
+        "closes": "18:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Thursday"],
+        "opens": "09:00",
+        "closes": "15:00"
+      }
+    ],
+    "department": [
+      {
+        "@type": "LocalBusiness",
+        "@id": `${baseUrl}/#branch-central`,
+        "name": "شعبه مرکزی تهران",
+        "telephone": "+982191300348",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IR",
+          "addressRegion": "Tehran",
+          "addressLocality": "Tehran",
+          "streetAddress": "تهران، خیابان مطهری، ابتدای خیابان قائم مقام فراهانی جنوبی، پلاک 158، ساختمان برتر سرویس"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.7234056,
+          "longitude": 51.4198072
+        }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": `${baseUrl}/#branch-west`,
+        "name": "شعبه غرب تهران",
+        "telephone": "+982191300348",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IR",
+          "addressRegion": "Tehran",
+          "addressLocality": "Tehran",
+          "streetAddress": "تهران، سعادت آباد، میدان کاج، کوچه دوازدهم علی اکبر، پلاک 30، مجتمع اداری کسری، طبقه اول واحد 5"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 35.7825085,
+          "longitude": 51.3752564
+        }
+      }
+    ]
+  },
+
+
+  {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": `${baseUrl}/#services-catalog`,
+    "name": "خدمات تعمیرات سامسونگ",
+    "url": `${baseUrl}/#services`,
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر گوشی سامسونگ",
+          "serviceType": "Mobile Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر لپ تاپ سامسونگ",
+          "serviceType": "Laptop Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر تبلت سامسونگ",
+          "serviceType": "Tablet Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر تلویزیون و مانیتور سامسونگ",
+          "serviceType": "TV and Monitor Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر پرینتر سامسونگ",
+          "serviceType": "Printer Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر لوازم خانگی سامسونگ",
+          "serviceType": "Home Appliances Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر صوتی و تصویری سامسونگ",
+          "serviceType": "AV Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "تعمیر دوربین عکاسی و فیلمبرداری",
+          "serviceType": "Camera Repair",
+          "provider": { "@id": `${baseUrl}/#organization` },
+          "areaServed": { "@type": "City", "name": "Tehran" }
+        }
+      }
+    ]
+  },
+
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${baseUrl}/#faq`,
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "آدرس نمایندگی تعمیرات سامسونگ در تهران کجاست؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "شعبه مرکزی تهران: خیابان مطهری، ابتدای خیابان قائم مقام فراهانی جنوبی، پلاک 158. شعبه غرب تهران: سعادت آباد، میدان کاج، کوچه دوازدهم علی اکبر، پلاک 30، مجتمع اداری کسری، طبقه اول واحد 5."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "آیا برای تعمیر سامسونگ باید حضوری مراجعه کنیم؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "خیر. میتوانید درخواست را ثبت کنید و در صورت سکونت در تهران از پیک رایگان برای دریافت و ارسال دستگاه استفاده کنید."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "شماره تماس نمایندگی تعمیرات سامسونگ چیست؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "برای مشاوره و ثبت سفارش با شماره 02191300348 تماس بگیرید."
+        }
+      }
+    ]
+  }
+];
+
+const finalSchemas = [...globalSchemas, ...homePageSchemas, ...schemas];
+---
+
+<script type="application/ld+json" is:inline>
+{JSON.stringify(finalSchemas)}
+</script>

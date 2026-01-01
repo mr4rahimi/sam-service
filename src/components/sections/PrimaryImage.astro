@@ -1,0 +1,201 @@
+---
+import LedFrame from "../LedFrame.astro";
+
+const {
+  mobileSrc = "/samsung-banner-500.webp",
+  desktopSrc = "/samsung-banner-900.webp",
+  alt = "بنر خدمات تعمیرات سامسونگ",
+  title = "بنر خدمات تعمیرات سامسونگ",
+} = Astro.props;
+---
+
+<LedFrame
+  class="mb-8 md:mb-12"
+  thickness="3px"
+  glow={0.9}
+  beam={1.1}
+  base={0.7}
+  radius="32px"
+  padding="10px"
+>
+  <section class="hero-wrap">
+    <div class="hero-3d" role="group" aria-label={title}>
+      <div class="hero-bg" aria-hidden="true"></div>
+
+      <div class="hero-card">
+        <div class="hero-rim" aria-hidden="true"></div>
+        <div class="hero-glow" aria-hidden="true"></div>
+
+        <div class="hero-media">
+          <picture>
+            <source media="(min-width: 768px)" srcset={desktopSrc} />
+            <img
+              src={mobileSrc}
+              alt={alt}
+              title={title}
+              width="900"
+              height="529"
+              loading="lazy"
+              decoding="async"
+              class="hero-img"
+              sizes="(min-width: 768px) 1152px, 100vw"
+            />
+          </picture>
+        </div>
+
+        <span class="pin pin-tl" aria-hidden="true"></span>
+        <span class="pin pin-tr" aria-hidden="true"></span>
+        <span class="pin pin-bl" aria-hidden="true"></span>
+        <span class="pin pin-br" aria-hidden="true"></span>
+      </div>
+
+      <div class="hero-shadow" aria-hidden="true"></div>
+    </div>
+  </section>
+</LedFrame>
+
+<style>
+  /* container */
+  .hero-wrap {
+    width: 100%;
+  }
+
+  /* 3D stage */
+  .hero-3d {
+    position: relative;
+    width: 100%;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: -35%;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0,180,255,0.18), transparent 40%),
+      radial-gradient(circle at 80% 10%, rgba(120,210,255,0.18), transparent 45%),
+      radial-gradient(circle at 70% 80%, rgba(255,140,220,0.14), transparent 55%);
+    filter: blur(14px);
+    transform: translateZ(-40px);
+    pointer-events: none;
+  }
+
+  /* card */
+  .hero-card {
+    position: relative;
+    border-radius: 26px;
+    overflow: hidden;
+    background: rgba(10,14,22,0.25);
+    transform: translateZ(28px);
+    transition: transform 420ms cubic-bezier(0.2,0.8,0.2,1);
+  }
+
+  .hero-shadow {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: 6px;
+    height: 28px;
+    background: radial-gradient(closest-side, rgba(0,0,0,0.55), transparent 70%);
+    filter: blur(12px);
+    transform: translateZ(-10px);
+    pointer-events: none;
+  }
+
+  /* rim + glow */
+  .hero-rim {
+    position: absolute;
+    inset: 0;
+    border-radius: 26px;
+    border: 1px solid rgba(255,255,255,0.22);
+    box-shadow:
+      0 30px 70px rgba(0,0,0,0.55),
+      inset 0 1px 0 rgba(255,255,255,0.35);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .hero-glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 28px;
+    background: linear-gradient(
+      140deg,
+      rgba(255,255,255,0.22),
+      rgba(255,255,255,0.06) 35%,
+      rgba(255,255,255,0.02) 55%,
+      rgba(255,255,255,0.08)
+    );
+    mix-blend-mode: screen;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* image */
+  .hero-media {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* pins */
+  .pin {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 35%, #fff, rgba(255,255,255,0.2) 60%);
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.55);
+    z-index: 4;
+  }
+
+  .pin-tl { top: -8px; left: -8px; }
+  .pin-tr { top: -8px; right: -8px; }
+  .pin-bl { bottom: -8px; left: -8px; }
+  .pin-br { bottom: -8px; right: -8px; }
+
+  /* hover depth */
+  @media (hover: hover) and (pointer: fine) {
+    .hero-3d:hover .hero-card {
+      transform: translateZ(36px) rotateX(3deg) rotateY(-3deg);
+    }
+  }
+
+  /* desktop banner */
+  @media (min-width: 768px) {
+    .hero-card { border-radius: 30px; }
+    .hero-rim { border-radius: 30px; }
+    .hero-glow { border-radius: 32px; }
+
+    .hero-media {
+      aspect-ratio: 17 / 10;
+    }
+
+    .pin {
+      width: 18px;
+      height: 18px;
+    }
+
+    .pin-tl, .pin-tr { top: -9px; }
+    .pin-bl, .pin-br { bottom: -9px; }
+    .pin-tl, .pin-bl { left: -9px; }
+    .pin-tr, .pin-br { right: -9px; }
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-card {
+      transition: none;
+    }
+  }
+</style>

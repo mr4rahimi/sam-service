@@ -1,65 +1,1019 @@
 ---
 import { NAV, SITE } from "../config/site";
+
+const SERVICE_LINKS = [
+  { label: "تعمیر لوازم خانگی سامسونگ", href: "https://sam-service.org/samsung-home-appliances-repairs/" },
+  { label: "تعمیر لپ تاپ سامسونگ", href: "https://sam-service.org/%d9%86%d9%85%d8%a7%db%8c%d9%86%d8%af%da%af%db%8c-%d8%aa%d8%b9%d9%85%db%8c%d8%b1%d8%a7%d8%aa-%d9%84%d9%be-%d8%aa%d8%a7%db%8c%d9%be-%d8%b3%d8%a7%d9%85%d8%b3%d9%88%d9%86%da%af/" },
+  { label: "تعمیر گوشی سامسونگ", href: "https://sam-service.org/%d9%86%d9%85%d8%a7%db%8c%d9%86%d8%af%da%af%db%8c-%d8%aa%d8%b9%d9%85%db%8c%d8%b1%d8%a7%d8%aa-%d9%85%d9%88%d8%a8%d8%a7%db%8c%d9%84-%d8%b3%d8%a7%d9%85%d8%b3%d9%88%d9%86%da%af3/" },
+  { label: "تعمیر تبلت سامسونگ", href: "https://sam-service.org/2%D8%AA%D8%B9%D9%85%DB%8C%D8%B1%D8%A7%D8%AA-%D8%AA%D8%A8%D9%84%D8%AA/" },
+  { label: "تعمیر ماشین های اداری سامسونگ", href: "https://sam-service.org/%d9%86%d9%85%d8%a7%db%8c%d9%86%d8%af%da%af%db%8c-%d8%aa%d8%b9%d9%85%db%8c%d8%b1%d8%a7%d8%aa-%d9%85%d8%a7%d8%b4%db%8c%d9%86-%d9%87%d8%a7%db%8c-%d8%a7%d8%af%d8%a7%d8%b1%db%8c-%d8%b3%d8%a7%d9%85%d8%b3/" },
+];
 ---
-<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-    <a href="/" class="flex items-center gap-2">
-      <img
-  src="/samsung-logo.webp"
-  alt="نمایندگی تعمیرات سامسونگ"
-  width="36"
-  height="36"
-  loading="eager"
-  decoding="async"
-  class="h-9 w-9 rounded-2xl object-contain bg-white/10 p-1"
-/>
-      <div class="leading-tight">
-        <div class="text-sm font-semibold">{SITE.name}</div>
-        <div class="text-xs text-slate-300">تعمیرات تخصصی samsung در تهران</div>
+
+<header id="site-header" class="hdr">
+  <!-- Row 1 (Always sticky) -->
+  <div class="hdr-row1">
+    <div class="hdr-container">
+      <!-- Right: text (no logo) -->
+      <a href="/" class="hdr-brand" aria-label={SITE.name}>
+        <div class="hdr-brand-title">نمایندگی تعمیرات سامسونگ</div>
+        <div class="hdr-brand-sub">تعمیرات تخصصی samsung در تهران</div>
+      </a>
+
+      <!-- Center: logo (300x60) with LED ring -->
+      <a href="/" class="hdr-logo led-ring" aria-label="صفحه اصلی">
+        <img
+          src="/samsung-logo.webp"
+          alt="لوگو سامسونگ"
+          width="300"
+          height="60"
+          loading="eager"
+          decoding="async"
+          class="hdr-logo-img"
+        />
+      </a>
+
+      <!-- Left: buttons with LED ring -->
+      <div class="hdr-actions led-ring" aria-label="اقدامات سریع">
+        <a class="hdr-btn hdr-btn-primary" href="tel:02191300348">تماس فوری</a>
       </div>
-    </a>
-
-    <nav class="hidden items-center gap-6 md:flex">
-      {NAV.map((item) => (
-        <a href={item.href} class="text-sm text-slate-200 hover:text-white transition">
-          {item.label}
-        </a>
-      ))}
-    </nav>
-
-    <div class="flex items-center gap-2">
-      <a
-        class="rounded-xl bg-sky-700 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-950 transition"
-        href="tel:02191300348"
-      >
-        تماس فوری
-      </a>
-      <a
-        class="hidden rounded-xl border border-white/15 px-3 py-2 text-sm text-slate-100 hover:border-white/30 transition md:inline-flex"
-        href="/services"
-      >
-        خدمات
-      </a>
     </div>
   </div>
 
-  <!-- Mobile nav -->
-<div class="mx-auto max-w-6xl px-4 pb-3 md:hidden">
-  <nav class="flex justify-center">
-    <ul class="flex max-w-full items-center gap-2 overflow-x-auto overflow-y-hidden whitespace-nowrap py-1 [-webkit-overflow-scrolling:touch]">
-      {NAV.map((item) => (
-        <li class="shrink-0">
-          <a
-            href={item.href}
-            class="inline-flex items-center justify-center rounded-xl border border-white/10 px-4 py-2 text-sm text-slate-200 hover:border-white/25 transition"
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-</div>
+  <!-- Row 2 (Hide on scroll down, show on scroll up) -->
+  <div id="hdr-row2" class="hdr-row2">
+    <div class="hdr-container">
+      <!-- Desktop menu -->
+      <nav class="hdr-nav hidden md:flex" aria-label="منوی اصلی">
+        {NAV.map((item) => {
+          const isServices = item.label === "خدمات";
+          if (!isServices) {
+            return (
+              <a href={item.href} class="hdr-navlink">
+                {item.label}
+              </a>
+            );
+          }
 
+          // خدمات + مگا منو
+          return (
+      <div class="hdr-drop" aria-label="زیر منوی خدمات">
+        <a href={item.href} class="hdr-navlink hdr-navlink-mega" aria-haspopup="true">
+          {item.label}
+          <span class="hdr-caret" aria-hidden="true">▾</span>
+        </a>
 
+        <div class="drop" role="group" aria-label="خدمات سام سرویس">
+          <div class="drop-led" aria-hidden="true"></div>
+
+          <div class="drop-top">
+            <div class="drop-title">زیر مجموعه خدمات</div>
+            <a class="drop-all led-ring" href="/services">صفحه خدمات</a>
+          </div>
+
+          <ul class="drop-list">
+            {SERVICE_LINKS.map((x) => (
+              <li>
+                <a class="drop-link" href={x.href}>
+                  <span class="drop-dot" aria-hidden="true"></span>
+                  <span>{x.label}</span>
+                  <span class="drop-arr" aria-hidden="true">↙</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+        })}
+      </nav>
+
+      <!-- Mobile row2: title + hamburger -->
+      <div class="hdr-mobilebar md:hidden">
+        <div class="hdr-mobile-title">{SITE.name}</div>
+
+        <button
+          id="menuBtn"
+          class="hdr-burger led-ring"
+          type="button"
+          aria-label="باز کردن منو"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div id="mobileMenu" class="mobile-menu md:hidden" aria-hidden="true" inert>
+      <div class="mobile-menu-panel">
+        <div class="mobile-menu-head">
+          <div class="mobile-menu-title">{SITE.name}</div>
+          <button id="menuCloseBtn" class="mobile-close" type="button" aria-label="بستن منو">✕</button>
+        </div>
+
+        <nav class="mobile-menu-nav" aria-label="منوی موبایل">
+  {NAV.map((item) => {
+    const isServices = item.label === "خدمات";
+
+    if (!isServices) {
+      return (
+        <a href={item.href} class="mobile-menu-link">
+          {item.label}
+        </a>
+      );
+    }
+
+    return (
+      <div class="mobile-acc">
+        <button
+          id="svcToggle"
+          class="mobile-menu-link mobile-acc-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="svcSub"
+        >
+          <span>{item.label}</span>
+          <span class="mobile-acc-ico" aria-hidden="true">▾</span>
+        </button>
+
+        <div id="svcSub" class="mobile-sub" hidden>
+          <a class="mobile-sub-head" href="/services">رفتن به صفحه خدمات</a>
+
+          <div class="mobile-sub-list">
+            {SERVICE_LINKS.map((x) => (
+              <a class="mobile-sub-link" href={x.href}>
+                <span class="mobile-sub-dot" aria-hidden="true"></span>
+                <span>{x.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</nav>
+
+        <div class="mobile-menu-cta">
+          <a class="hdr-btn hdr-btn-primary w-full justify-center" href="tel:02191300348">تماس فوری</a>
+        </div>
+      </div>
+
+      <button id="menuBackdrop" class="mobile-menu-backdrop" type="button" aria-label="بستن پس زمینه"></button>
+    </div>
+  </div>
 </header>
+
+<script is:inline>
+  const header = document.getElementById("site-header");
+
+  let lastY = window.scrollY || 0;
+  let lastToggleTs = 0;
+  let ticking = false;
+  let menuOpen = false;
+
+  const MIN_DELTA = 14;
+  const COOLDOWN = 180;
+
+  function setDown(isDown) {
+    const now = Date.now();
+    if (now - lastToggleTs < COOLDOWN) return;
+    lastToggleTs = now;
+
+    header.classList.toggle("is-down", isDown);
+  }
+
+  function onScroll() {
+    if (menuOpen) {
+      ticking = false;
+      return;
+    }
+
+    const y = window.scrollY || 0;
+    const delta = y - lastY;
+
+    if (Math.abs(delta) < MIN_DELTA) {
+      ticking = false;
+      return;
+    }
+
+    if (delta > 0) setDown(true);
+    else setDown(false);
+
+    lastY = y;
+    ticking = false;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  const btn = document.getElementById("menuBtn");
+  const closeBtn = document.getElementById("menuCloseBtn");
+  const backdrop = document.getElementById("menuBackdrop");
+  const menu = document.getElementById("mobileMenu");
+
+  function openMenu() {
+    menuOpen = true;
+    menu.classList.add("open");
+    menu.setAttribute("aria-hidden", "false");
+    menu.removeAttribute("inert");
+
+    btn?.setAttribute("aria-expanded", "true");
+    document.documentElement.classList.add("no-scroll");
+    closeBtn?.focus();
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+    menu.classList.remove("open");
+    menu.setAttribute("aria-hidden", "true");
+    menu.setAttribute("inert", "");
+
+    btn?.setAttribute("aria-expanded", "false");
+    document.documentElement.classList.remove("no-scroll");
+
+    lastY = window.scrollY || 0;
+    btn?.focus();
+  }
+
+  btn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (menu.classList.contains("open")) closeMenu();
+    else openMenu();
+  });
+
+  closeBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMenu();
+  });
+
+  backdrop?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMenu();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768 && menu.classList.contains("open")) closeMenu();
+  });
+
+  // Mobile services accordion
+  const svcToggle = document.getElementById("svcToggle");
+  const svcSub = document.getElementById("svcSub");
+
+  function closeSvcSub() {
+    if (!svcSub || !svcToggle) return;
+    svcSub.hidden = true;
+    svcToggle.setAttribute("aria-expanded", "false");
+    svcToggle.classList.remove("is-open");
+  }
+
+  svcToggle?.addEventListener("click", () => {
+    if (!svcSub) return;
+    const open = svcSub.hidden === false;
+    svcSub.hidden = open; 
+    svcToggle.setAttribute("aria-expanded", String(!open));
+    svcToggle.classList.toggle("is-open", !open);
+  });
+
+ 
+  const _origCloseMenu = closeMenu;
+  function closeMenuPatched() {
+    closeSvcSub();
+    _origCloseMenu();
+  }
+  closeMenu = closeMenuPatched;
+</script>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(2, 6, 23, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .hdr-container {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+  }
+
+  .hdr-row1 { padding: 0.75rem 0; }
+
+  .hdr-row1 .hdr-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hdr-brand {
+    justify-self: start;
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 1.1;
+    text-decoration: none;
+  }
+
+  .hdr-brand-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .hdr-brand-sub {
+    margin-top: 0.15rem;
+    font-size: 0.78rem;
+    color: rgba(226, 232, 240, 0.75);
+  }
+
+  .hdr-logo {
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    padding: 8px 10px;
+  }
+
+  .hdr-logo-img {
+    display: block;
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .hdr-actions {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 18px;
+    padding: 8px;
+  }
+
+  .hdr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hdr-btn:active { transform: translateY(1px); }
+
+  .hdr-btn-primary {
+    background: rgba(239, 0, 0, 0.95);
+    color: rgba(2, 6, 23, 0.95);
+  }
+
+  .hdr-btn-primary:hover { background: rgba(56, 189, 248, 0.98); }
+
+  .hdr-row2 {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    transform-origin: top;
+    transition: transform 260ms ease, opacity 260ms ease, max-height 260ms ease;
+    max-height: 88px;
+    opacity: 1;
+  }
+
+  .hdr.is-down .hdr-row2 {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+
+  .hdr-nav {
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.65rem 0;
+    justify-content: center;
+  }
+
+  .hdr-navlink {
+    color: rgba(226, 232, 240, 0.88);
+    font-size: 0.92rem;
+    text-decoration: none;
+    padding: 0.45rem 0.75rem;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hdr-navlink:hover {
+    color: rgba(255, 255, 255, 0.98);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.10);
+  }
+
+  .hdr-caret {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
+
+  /* -------------------------
+     Mega menu (Desktop only)
+     - SEO friendly (pure HTML links)
+     - Accessible (focus-within)
+     ------------------------- */
+  .hdr-mega {
+    position: relative;
+  }
+
+  .mega {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(980px, calc(100vw - 2rem));
+    border-radius: 26px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2, 6, 23, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.60);
+    padding: 14px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+    transform-origin: top;
+  }
+
+  /* Show on hover/focus */
+  .hdr-mega:hover .mega,
+  .hdr-mega:focus-within .mega {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .mega-led {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--a),
+      rgba(0,200,255,0) 0deg,
+      rgba(0,200,255,0) 292deg,
+      rgba(0,220,255,0.40) 314deg,
+      rgba(0,245,255,0.95) 330deg,
+      rgba(0,220,255,0.40) 346deg,
+      rgba(0,200,255,0) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    opacity: 0.75;
+    animation: led-rotate 5.4s linear infinite;
+  }
+
+  .mega-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 4px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .mega-title {
+    font-weight: 950;
+    color: rgba(241,245,249,0.95);
+    letter-spacing: 0.02em;
+  }
+
+  .mega-all {
+    border-radius: 16px;
+    padding: 10px 12px;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 0.88rem;
+    color: rgba(241,245,249,0.92);
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .mega-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 14px;
+    padding-top: 12px;
+  }
+
+  .mega-col {
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+  }
+
+  .mega-h {
+    font-size: 0.85rem;
+    font-weight: 950;
+    color: rgba(226,232,240,0.85);
+    margin-bottom: 10px;
+  }
+
+  .mega-list, .mega-sublist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .mega-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    border-radius: 16px;
+    padding: 11px 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2,6,23,0.35);
+    color: rgba(241,245,249,0.92);
+    transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  }
+
+  .mega-link:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.16);
+  }
+
+  .mega-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(0,200,255,0.95);
+    box-shadow: 0 0 18px rgba(0,200,255,0.55);
+    flex: 0 0 auto;
+  }
+
+  .mega-arr {
+    margin-right: auto;
+    opacity: 0.75;
+  }
+
+  .mega-subgrid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mega-sub {
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(2,6,23,0.28);
+    padding: 10px 10px;
+  }
+
+  .mega-subtitle {
+    font-weight: 950;
+    font-size: 0.82rem;
+    color: rgba(241,245,249,0.92);
+    margin-bottom: 8px;
+  }
+
+  .mega-sublink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    border-radius: 14px;
+    padding: 9px 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    color: rgba(226,232,240,0.90);
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .mega-sublink:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.14);
+  }
+
+  .mega-mini {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(0,200,255,0.75);
+    box-shadow: 0 0 14px rgba(0,200,255,0.45);
+    flex: 0 0 auto;
+  }
+
+  .mega-note {
+    border-radius: 18px;
+    padding: 10px 12px;
+    border: 1px dashed rgba(255,255,255,0.14);
+    color: rgba(226,232,240,0.72);
+    font-size: 0.82rem;
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* Mobile row2 bar: title right, burger left */
+  .hdr-mobilebar{
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hdr-mobile-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: rgba(241, 245, 249, 0.95);
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hdr-burger {
+    width: 46px;
+    height: 40px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 767px) {
+    .hdr-mobilebar{ display: flex; }
+  }
+
+  .burger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: rgba(226, 232, 240, 0.95);
+    border-radius: 99px;
+  }
+
+  /* LED ring */
+  .led-ring { position: relative; overflow: hidden; }
+  .led-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        from var(--a),
+        rgba(0, 200, 255, 0.00) 0deg,
+        rgba(0, 200, 255, 0.00) 290deg,
+        rgba(0, 220, 255, 0.55) 312deg,
+        rgba(0, 245, 255, 1.00) 328deg,
+        rgba(0, 220, 255, 0.55) 344deg,
+        rgba(0, 200, 255, 0.00) 360deg
+      ),
+      conic-gradient(
+        from 0deg,
+        rgba(0, 190, 255, 0.12),
+        rgba(0, 220, 255, 0.16),
+        rgba(0, 190, 255, 0.12)
+      );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    mix-blend-mode: screen;
+    filter: saturate(1.35);
+    animation: led-rotate 4.4s linear infinite;
+  }
+
+  .led-ring::after {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        from var(--a),
+        rgba(0, 210, 255, 0.00) 0deg,
+        rgba(0, 210, 255, 0.00) 305deg,
+        rgba(0, 235, 255, 0.35) 325deg,
+        rgba(0, 255, 255, 0.65) 338deg,
+        rgba(0, 235, 255, 0.35) 352deg,
+        rgba(0, 210, 255, 0.00) 360deg
+      );
+    filter: blur(16px) saturate(1.35);
+    mix-blend-mode: screen;
+    opacity: 0.75;
+    animation: led-rotate 4.4s linear infinite;
+  }
+
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  @keyframes led-rotate { to { --a: 360deg; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .led-ring::before, .led-ring::after, .mega-led { animation: none; }
+  }
+
+  /* Mobile drawer menu styles (unchanged) */
+  .mobile-menu { position: relative; }
+  .mobile-menu-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(2, 6, 23, 0.62);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+    z-index: 60;
+  }
+  .mobile-menu-panel {
+    position: fixed;
+    right: 12px; left: 12px;
+    top: 72px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(2, 6, 23, 0.92);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    transform: translateY(-10px) scale(0.98);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 240ms ease, opacity 240ms ease;
+    z-index: 70;
+    overflow: hidden;
+  }
+  .mobile-menu.open .mobile-menu-backdrop { opacity: 1; pointer-events: auto; }
+  .mobile-menu.open .mobile-menu-panel {
+    opacity: 1; pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .mobile-menu-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .mobile-menu-title { font-weight: 900; color: rgba(241,245,249,0.95); }
+  .mobile-close {
+    width: 38px; height: 34px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    color: rgba(241,245,249,0.95);
+    cursor: pointer;
+  }
+
+  .mobile-menu-nav { display: grid; gap: 10px; padding: 12px 14px; }
+  .mobile-menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    color: rgba(226,232,240,0.92);
+    text-decoration: none;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+  .mobile-menu-link:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.16);
+    color: rgba(255,255,255,0.98);
+  }
+
+  .mobile-menu-cta { display: grid; gap: 10px; padding: 0 14px 14px; }
+
+  :global(html.no-scroll),
+  :global(body.no-scroll) { overflow: hidden; }
+
+  /* Mobile layout */
+  @media (max-width: 767px) {
+    .hdr-row1 .hdr-container {
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+    }
+    .hdr-brand { display: none; }
+    .hdr-logo { justify-self: start; padding: 8px 10px; }
+    .hdr-logo-img { height: 34px; }
+    .hdr-actions { justify-self: end; padding: 6px; gap: 0.4rem; }
+    .hdr-btn { padding: 0.52rem 0.78rem; border-radius: 14px; }
+  }
+
+  /* -------- Desktop dropdown (1 column) -------- */
+.hdr-drop { position: relative; }
+
+.drop{
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, calc(100vw - 2rem));
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.60);
+  padding: 12px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+}
+
+.hdr-drop:hover .drop,
+.hdr-drop:focus-within .drop{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.drop-led{
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--a),
+    rgba(0,200,255,0) 0deg,
+    rgba(0,200,255,0) 292deg,
+    rgba(0,220,255,0.40) 314deg,
+    rgba(0,245,255,0.95) 330deg,
+    rgba(0,220,255,0.40) 346deg,
+    rgba(0,200,255,0) 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  animation: led-rotate 5.4s linear infinite;
+}
+
+.drop-top{
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 4px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.drop-title{ font-weight: 950; color: rgba(241,245,249,0.95); }
+.drop-all{
+  border-radius: 14px;
+  padding: 9px 11px;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.86rem;
+  color: rgba(241,245,249,0.92);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.03);
+}
+
+.drop-list{
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  padding: 10px 0 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.drop-link{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  border-radius: 16px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(2,6,23,0.35);
+  color: rgba(241,245,249,0.92);
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+.drop-link:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.16);
+}
+.drop-dot{
+  width: 9px; height: 9px; border-radius: 999px;
+  background: rgba(0,200,255,0.95);
+  box-shadow: 0 0 18px rgba(0,200,255,0.55);
+  flex: 0 0 auto;
+}
+.drop-arr{ margin-right: auto; opacity: 0.75; }
+
+/* -------- Mobile accordion -------- */
+.mobile-acc { display: grid; gap: 10px; }
+.mobile-acc-btn { cursor: pointer; }
+
+.mobile-acc-ico{
+  transition: transform 180ms ease;
+  opacity: 0.85;
+}
+.mobile-acc-btn.is-open .mobile-acc-ico{
+  transform: rotate(180deg);
+}
+
+.mobile-sub{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(2,6,23,0.35);
+  padding: 10px;
+}
+
+.mobile-sub-head{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-weight: 950;
+  text-decoration: none;
+  color: rgba(241,245,249,0.92);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 10px;
+}
+
+.mobile-sub-list{ display: grid; gap: 8px; }
+
+.mobile-sub-link{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 14px;
+  padding: 10px 10px;
+  text-decoration: none;
+  color: rgba(226,232,240,0.92);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.mobile-sub-link:hover{
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.98);
+}
+
+.mobile-sub-dot{
+  width: 8px; height: 8px; border-radius: 999px;
+  background: rgba(0,200,255,0.9);
+  box-shadow: 0 0 14px rgba(0,200,255,0.45);
+  flex: 0 0 auto;
+}
+
+</style>
